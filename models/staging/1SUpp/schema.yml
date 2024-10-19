@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: Stage1CUpp  # имя схемы или источника
+    schema: Stage1CUpp  # имя схемы в базе данных
+    tables:
+      - name: "С_Номенклатура"  # имя таблицы в базе данных
