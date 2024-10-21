@@ -8,6 +8,8 @@ models:
   - name: sub_dim_Штрихкоды
     description: "Справочник штрихкодов"
 
+
   - name: dim_products
     description: "Таблица фактов продаж"
+
 
