@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: Stage1CUpp
+    schema: Stage1CUpp
+    tables:
+      - name: "Stage1CUpp.`РН_Продажи`"
