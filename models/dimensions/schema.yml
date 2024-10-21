@@ -2,8 +2,11 @@ version: 2
 
 models:
 
-  - name: dim_Общие_наименования
+  - name: sub_dim_Общие_наименования
     description: "Таблица с общими наименованиями продуктов"
+  
+  - name: sub_dim_Штрихкоды
+    description: "Справочник штрихкодов"
 
   - name: dim_products
     description: "Таблица фактов продаж"
