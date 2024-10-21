@@ -1,6 +1,6 @@
 {{ config(
     materialized='view',
-    tags=["subdim"]
+    tags=["sub_dim"]
 ) }}
 
 SELECT

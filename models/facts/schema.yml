@@ -1,5 +1,7 @@
 version: 2
 
 models:
-  - name: Stage1CUpp
-    description: "Таблица фактов продаж"
+  - name: "fact_Продажи"
+    description: "Таблица факта продаж"
+  - name: "fact_ТоварыНаСкладахОстатки"
+    description: "Таблица факта остатков товаров на складах"
