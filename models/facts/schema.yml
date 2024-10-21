@@ -2,6 +2,4 @@ version: 2
 
 models:
   - name: Stage1CUpp
-    schema: Stage1CUpp
-    tables:
-      - name: "fact_Продажи"
+    description: "Таблица фактов продаж"

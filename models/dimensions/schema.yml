@@ -1,0 +1,10 @@
+version: 2
+
+models:
+
+  - name: dim_Общие_наименования
+    description: "Таблица с общими наименованиями продуктов"
+
+  - name: dim_products
+    description: "Таблица фактов продаж"
+
