@@ -2,10 +2,10 @@ with nomenclature as
 (select * from {{ ref("stg_С_Номенклатура") }}),
 
 common_names as
-(select * from {{ref ("sub_dim_Общие_наименования")}}),
+(select * from {{ref ("subdim_Общие_наименования")}}),
 
 bar_codes as 
-(select * from {{ref('sub_dim_Штрихкоды')}}),
+(select * from {{ref('subdim_Штрихкоды')}}),
 
 joined as
 (select * from nomenclature 
