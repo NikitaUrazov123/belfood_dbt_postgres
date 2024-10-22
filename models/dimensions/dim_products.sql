@@ -7,10 +7,14 @@ common_names as
 bar_codes as 
 (select * from {{ref('subdim_Штрихкоды')}}),
 
+nomenclature_groups as
+(select * from {{ ref("subdim_С_НоменклатурныеГруппы") }}), 
+
 joined as
 (select * from nomenclature 
 left join common_names on nomenclature."СсылкаГуид" = common_names."ОбъектГуид"
-left join bar_codes on nomenclature."СсылкаГуид" = bar_codes."ВладелецГуид"),
+left join bar_codes on nomenclature."СсылкаГуид" = bar_codes."ВладелецГуид"
+left join nomenclature_groups on nomenclature."НоменклатурнаяГруппаГуид" = nomenclature_groups."СсылкаГуид"),
 
 filtred as 
 (select * from joined 
@@ -98,7 +102,8 @@ nomenclature.`Наименование` as "Наименование",
 nomenclature.`Код` as "Код",
 nomenclature.`ПараметрНаименование` as "ПараметрНаименование",
 common_names.`Значение` as "Общее наименование",
-bar_codes.`Штрихкод` as "Штрихкод"
+bar_codes.`Штрихкод` as "Штрихкод",
+nomenclature_groups.`Наименование` as "Номенклатурная группа"
 from filtred
 )
 
