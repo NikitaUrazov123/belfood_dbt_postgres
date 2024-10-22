@@ -8,7 +8,7 @@ models:
   - name: sub_dim_Штрихкоды
     description: "Справочник штрихкодов"
 
-  - name: dim_products
+  - name: dim_nomenclature
     description: "Таблица фактов продаж"
 
   - name: subdim_stg_С_НоменклатурныеГруппы
