@@ -40,7 +40,10 @@ bar_codes as
 (select * from {{ref('subdim_Штрихкоды')}}),
 
 nomenclature_groups as
-(select * from {{ ref("subdim_С_НоменклатурныеГруппы") }}), 
+(select * from {{ ref("subdim_С_НоменклатурныеГруппы") }}),
+
+volume as 
+(select* from {{ ref("subdim_Литраж") }}),
 
 joined as
 (select * from nomenclature 
@@ -56,6 +59,7 @@ left join brand on nomenclature."СсылкаГуид" = brand."ОбъектГу
 left join bud_category on nomenclature."СсылкаГуид" = bud_category."ОбъектГуид"
 left join prod_type on nomenclature."СсылкаГуид" = prod_type."ОбъектГуид"
 left join report_group on nomenclature."СсылкаГуид" = report_group."ОбъектГуид"
+left join volume on nomenclature."СсылкаГуид" = volume."ОбъектГуид"
 ),
 
 filtred as 
@@ -142,7 +146,6 @@ nomenclature.`ЭтоГруппа` as "ЭтоГруппа",
 nomenclature.`Родитель` as "Родитель",
 nomenclature.`Наименование` as "Наименование",
 nomenclature.`Код` as "Код",
-nomenclature.`ПараметрНаименование` as "ПараметрНаименование",
 common_names.`Значение` as "Общее наименование",
 bar_codes.`Штрихкод` as "Штрихкод"
 , nomenclature_groups.`Наименование` as "Номенклатурная группа"
@@ -155,6 +158,7 @@ bar_codes.`Штрихкод` as "Штрихкод"
 , bud_category.`Значение` as "Вид ДП"
 , report_group.`Значение` as "Направление продукта"
 , prod_type.`Значение` as "Тип продукции"
+, volume.`Значение` as "Литраж"
 from filtred
 )
 
