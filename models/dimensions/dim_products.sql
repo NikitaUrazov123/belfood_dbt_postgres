@@ -1,8 +1,40 @@
+{{ config(
+    materialized='table',
+    tags=["dim"]
+) }}
+
 with nomenclature as 
 (select * from {{ ref("stg_С_Номенклатура") }}),
 
 common_names as
 (select * from {{ref ("subdim_Общие_наименования")}}),
+
+m_taste as
+(select * from {{ ref("subdim_мВкус") }}),
+
+m_age as
+(select * from {{ ref("subdim_мКатегорияВозраст") }}),
+
+m_component as 
+(select * from {{ ref("subdim_мКатегорияКомпонент") }}),
+
+m_prod_category as 
+(select * from {{ ref("subdim_мКатегорияПродукт") }}),
+
+prod_type as
+(select * from {{ ref("subdim_ТипПродукции") }}),
+
+report_group as 
+(select * from {{ ref("subdim_ГруппаТоваровДляОтчета") }}),
+
+brand as 
+(select * from {{ ref("subdim_Бренд") }}),
+
+bud_category as
+(select * from {{ ref("subdim_ВидДП") }}),
+
+package_type as 
+(select * from {{ ref("subdim_ВидУпаковки") }}),
 
 bar_codes as 
 (select * from {{ref('subdim_Штрихкоды')}}),
@@ -14,14 +46,24 @@ joined as
 (select * from nomenclature 
 left join common_names on nomenclature."СсылкаГуид" = common_names."ОбъектГуид"
 left join bar_codes on nomenclature."СсылкаГуид" = bar_codes."ВладелецГуид"
-left join nomenclature_groups on nomenclature."НоменклатурнаяГруппаГуид" = nomenclature_groups."СсылкаГуид"),
+left join nomenclature_groups on nomenclature."НоменклатурнаяГруппаГуид" = nomenclature_groups."СсылкаГуид"
+left join m_taste on nomenclature."СсылкаГуид" = m_taste."ОбъектГуид"
+left join m_age on nomenclature."СсылкаГуид" = m_age."ОбъектГуид"
+left join m_component on nomenclature."СсылкаГуид" = m_component."ОбъектГуид"
+left join m_prod_category on nomenclature."СсылкаГуид" = m_prod_category."ОбъектГуид"
+left join package_type on nomenclature."СсылкаГуид" = package_type."ОбъектГуид"
+left join brand on nomenclature."СсылкаГуид" = brand."ОбъектГуид"
+left join bud_category on nomenclature."СсылкаГуид" = bud_category."ОбъектГуид"
+left join prod_type on nomenclature."СсылкаГуид" = prod_type."ОбъектГуид"
+left join report_group on nomenclature."СсылкаГуид" = report_group."ОбъектГуид"
+),
 
 filtred as 
 (select * from joined 
 	where 
-		nomenclature.`ПометкаУдаления` = false
+		nomenclature.`ПометкаУдаления` = False
 	and 
-		nomenclature.`ЭтоГруппа` = false),
+		nomenclature.`ЭтоГруппа` = False),
 
 renamed as (
 select
@@ -102,8 +144,17 @@ nomenclature.`Наименование` as "Наименование",
 nomenclature.`Код` as "Код",
 nomenclature.`ПараметрНаименование` as "ПараметрНаименование",
 common_names.`Значение` as "Общее наименование",
-bar_codes.`Штрихкод` as "Штрихкод",
-nomenclature_groups.`Наименование` as "Номенклатурная группа"
+bar_codes.`Штрихкод` as "Штрихкод"
+, nomenclature_groups.`Наименование` as "Номенклатурная группа"
+, m_taste.`Значение` as "Вкус"
+, m_age.`Значение` as "Категория Возраст"
+, m_component.`Значение` as "Компонент"
+, m_prod_category.`Значение` as "Категория Продукт"
+, package_type.`Значение` as "Вид упаковки"
+, brand.`Значение` as "Бренд"
+, bud_category.`Значение` as "Вид ДП"
+, report_group.`Значение` as "Направление продукта"
+, prod_type.`Значение` as "Тип продукции"
 from filtred
 )
 
