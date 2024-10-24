@@ -46,3 +46,8 @@ left join dim_nbrb_exrates on dim_nbrb_exrates.date = toDate(fact."Период"
 )
 
 select * from joined
+
+
+{% if is_incremental() %}
+  where fact."Период" >= dateAdd(month, -1, today())
+{% endif %}
