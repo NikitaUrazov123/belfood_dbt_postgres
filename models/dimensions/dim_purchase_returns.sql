@@ -3,4 +3,8 @@
     tags=["dim"]
 ) }}
 
-select * from {{ ref("stg_Д_ВозвратТоваровОтПокупателя") }}
+with source as (
+      select * from {{ source('Stage1CUpp', 'Д_ВозвратТоваровОтПокупателя') }}
+)
+
+select * from source

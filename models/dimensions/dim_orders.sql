@@ -3,4 +3,4 @@
     tags=["dim"]
 ) }}
 
-select * from {{ ref("stg_Д_ЗаказПокупателя") }}
+select * from {{ source('Stage1CUpp', 'Д_ЗаказПокупателя') }}
