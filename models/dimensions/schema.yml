@@ -1,17 +1,36 @@
 version: 2
 
-models:
+sources:
+  - name: analytics_shipments
+    schema: analytics_shipments
+    tables:
+      - name: calendar2
+      - name: nbrb_exrates
 
-  - name: sub_dim_Общие_наименования
+models:
+  - name: subdim_Общие_наименования
     description: "Таблица с общими наименованиями продуктов"
   
-  - name: sub_dim_Штрихкоды
+  - name: subdim_Штрихкоды
     description: "Справочник штрихкодов"
 
   - name: dim_nomenclature
     description: "Таблица фактов продаж"
 
-  - name: subdim_stg_С_НоменклатурныеГруппы
+  - name: subdim_С_НоменклатурныеГруппы
     description: "Таблица с номенклатурными группами. Пример: \"Детское питание\", \"Десткое питание: гуалапак\""
+
+  - name: dim_calendar
+    description: "Календарь"
+
+  - name: subdim_nbrb_exrate_USD
+    description: "Курс обмена НБ РБ USD"
+  
+  - name: subdim_nbrb_exrate_EUR
+    description: "Курс обмена НБ РБ EUR"
+
+  - name: subdim_nbrb_exrate_RUB
+    description: "Курс обмена НБ РБ RUB"
+    
 
 
