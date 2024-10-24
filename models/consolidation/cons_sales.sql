@@ -27,6 +27,9 @@ dim_shops as
 dim_client as 
 (select * from {{ ref("dim_client") }}),
 
+dim_nbrb_exrates as 
+(select * from {{ ref("dim_nbrb_exrates") }}),
+
 joined as
 (
 select * 
