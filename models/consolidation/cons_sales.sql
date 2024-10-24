@@ -39,6 +39,7 @@ left join dim_orders on dim_orders."СсылкаГуид" = dim_sale_docs."Сд�
 left join dim_shops as sale_docs_shops on sale_docs_shops."СсылкаГуид" = dim_sale_docs."ТорговыйОбъектГуид"
 left join dim_shops as order_docs_shops on order_docs_shops."СсылкаГуид" = dim_orders."ТорговыйОбъектГуид"
 left join dim_client on dim_client."СсылкаГуид" = fact.`КонтрагентГуид`
+left join dim_nbrb_exrates on dim_nbrb_exrates.date = toDate(fact."Период")
 )
 
 select * from joined
