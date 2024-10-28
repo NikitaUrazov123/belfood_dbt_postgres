@@ -1,5 +1,12 @@
 version: 2
 
+sources:
+  - name: Stage1CUpp
+    schema: Stage1CUpp
+    tables:
+      - name: "РН_Продажи"
+      - name: "РН_ТоварыНаСкладахОстатки"
+
 models:
   - name: "fact_Продажи"
     description: "Таблица факта продаж"

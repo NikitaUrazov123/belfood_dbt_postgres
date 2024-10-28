@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    tags=["subdim"]
+    tags=["cons"]
 ) }}
 
 with fact as 
@@ -30,6 +30,9 @@ dim_client as
 dim_nbrb_exrates as 
 (select * from {{ ref("dim_nbrb_exrates") }}),
 
+dim_sale_docs_goods as 
+(select * from {{ ref("dim_sale_docs_goods") }}),
+
 joined as
 (
 select * 
@@ -43,6 +46,7 @@ left join dim_shops as sale_docs_shops on sale_docs_shops."СсылкаГуид"
 left join dim_shops as order_docs_shops on order_docs_shops."СсылкаГуид" = dim_orders."ТорговыйОбъектГуид"
 left join dim_client on dim_client."СсылкаГуид" = fact.`КонтрагентГуид`
 left join dim_nbrb_exrates on dim_nbrb_exrates.date = toDate(fact."Период")
+--left join dim_sale_docs_goods on concat(dim_sale_docs_goods.`НомерСтроки`, dim_sale_docs_goods."СсылкаГуид")  concat(fact.`НомерСтроки`,fact.`РегистраторГуид`)
 )
 
 select * from joined

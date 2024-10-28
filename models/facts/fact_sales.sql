@@ -24,8 +24,8 @@ SELECT
 	`ДоговорКонтрагентаГуид`,
 	`ДокументПродажиГуид`,
 	`КонтрагентГуид`,
-now() as updated_at FROM {{ source('Stage1SUpp', 'РН_Продажи') }}
+now() as updated_at FROM {{ source('Stage1CUpp', 'РН_Продажи') }}
 
 {% if is_incremental() %}
-  where "Период" >= dateAdd(month, -2, today())
+  where "Период" >= dateAdd(month, -1, today())
 {% endif %}
