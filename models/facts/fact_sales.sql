@@ -1,6 +1,6 @@
 {{
     config(
-        materialized='incremental'
+        materialized='view'
     )
 }}
 
@@ -24,8 +24,5 @@ SELECT
 	`ДоговорКонтрагентаГуид`,
 	`ДокументПродажиГуид`,
 	`КонтрагентГуид`,
-now() as updated_at FROM {{ source('Stage1CUpp', 'РН_Продажи') }}
-
-{% if is_incremental() %}
-  where "Период" >= dateAdd(month, -1, today())
-{% endif %}
+	concat(toString(`РегистраторГуид`), toString(`НомерСтроки`)) as key_record
+	FROM {{ ref("stg_РН_Продажи") }}

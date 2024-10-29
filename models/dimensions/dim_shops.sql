@@ -3,12 +3,10 @@
     tags=["dim"]
 ) }}
 
-with source as (
-select * from {{ source('Stage1CUpp', 'С_ТорговыеОбъекты') }}),
-
-filtred as
-(select * from source
-where `ПометкаУдаления` = False),
+with 
+source as (
+select * from {{ ref("stg_C_ТорговыеОбъекты") }}
+),
 
 renamed as(
 select
@@ -44,7 +42,7 @@ select
 	`ОтветственныйГуид`,*/
 	`СсылкаГуид`,
 	--`ВладелецГуид`
-from filtred)
+from source)
 
 select * from renamed 
 

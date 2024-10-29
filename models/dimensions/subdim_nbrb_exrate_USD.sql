@@ -4,10 +4,7 @@
 ) }}
 
 with source as(
-SELECT
-    *
-FROM
-    {{ source('analytics_shipments', 'nbrb_exrates') }}),
+SELECT * FROM {{ ref("stg_nbrb_exrates") }}),
 
 filtred as 
 (
@@ -18,9 +15,9 @@ filtred as
 renamed as
 (
     select 
-    toDate(`Date`) as date,
-    Cur_Scale as scale,
-    Cur_OfficialRate as ex_rate
+    date,
+    "Cur_Scale" as scale,
+    "Cur_OfficialRate" as ex_rate
     from filtred
 )
 

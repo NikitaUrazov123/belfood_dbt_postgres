@@ -1,6 +1,6 @@
 --Надо добавить scale
 {{ config(
-    materialized='incremental',
+    materialized='view',
     tags=["dim"]
 ) }}
 
@@ -34,7 +34,3 @@ renamed as
 )
 
 select * from renamed
-
-{% if is_incremental() %}
-  where date >= dateAdd(month, -1, today())
-{% endif %}

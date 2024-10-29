@@ -3,4 +3,4 @@
     tags=["dim"]
 ) }}
 
-select * from {{ source('Stage1CUpp', 'Д_РеализацияТоваровУслуг') }}
+select * from {{ ref("stg_Д_РеализацияТоваровУслуг") }}

@@ -1,10 +1,10 @@
 {{ config(
-    materialized='table',
+    materialized='view',
     tags=["dim"]
 ) }}
 
 with nomenclature as 
-(SELECT * FROM {{ source('Stage1CUpp', 'С_Номенклатура') }}),
+(SELECT * FROM {{ ref("stg_С_Номенклатура") }}),
 
 common_names as
 (select * from {{ref ("subdim_Общие_наименования")}}),
@@ -62,13 +62,6 @@ left join report_group on nomenclature."СсылкаГуид" = report_group."О
 left join volume on nomenclature."СсылкаГуид" = volume."ОбъектГуид"
 ),
 
-filtred as 
-(select * from joined 
-	where 
-		nomenclature.`ПометкаУдаления` = False
-	and 
-		nomenclature.`ЭтоГруппа` = False),
-
 renamed as (
 select
 nomenclature.`Артикул` as "Артикул",
@@ -117,7 +110,7 @@ bar_codes.`Штрихкод` as "Штрихкод"
 , report_group.`Значение` as "Направление продукта"
 , prod_type.`Значение` as "Тип продукции"
 , volume.`Значение` as "Литраж"
-from filtred
+from joined
 )
 
 select * from renamed
