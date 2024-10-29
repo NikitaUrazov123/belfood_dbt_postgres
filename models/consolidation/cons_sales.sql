@@ -1,5 +1,5 @@
 {{ config(
-    materialized='incremental',
+    materialized='view',
     tags=["cons"]
 ) }}
 
@@ -35,7 +35,7 @@ dim_sale_docs_goods as
 
 joined as
 (
-select * 
+select *
 from fact
 left join dim_nomenclature on dim_nomenclature."СсылкаГуид" = fact.`НоменклатураГуид`
 left join dim_calendar on dim_calendar.date=toDate(fact."Период")
@@ -50,8 +50,3 @@ left join dim_nbrb_exrates on dim_nbrb_exrates.date = toDate(fact."Период"
 )
 
 select * from joined
-
-
-{% if is_incremental() %}
-  where fact."Период" >= dateAdd(month, -1, today())
-{% endif %}
