@@ -15,7 +15,7 @@ models:
 
   - name: dim_calendar
     description: "Календарь"
-
+    
   - name: subdim_nbrb_exrate_USD
     description: "Курс обмена НБ РБ USD"
   

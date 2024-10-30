@@ -5,6 +5,7 @@ models:
     description: "Таблица факта продаж"
     columns:
      - name: key_record
+       description: "Уникальный ключ записи"
        data-tests:
         - not_null
         - unique
