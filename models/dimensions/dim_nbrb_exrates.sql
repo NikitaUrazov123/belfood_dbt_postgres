@@ -1,6 +1,5 @@
 --Надо добавить scale
 {{ config(
-    materialized='view',
     tags=["dim"]
 ) }}
 

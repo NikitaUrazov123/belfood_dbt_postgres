@@ -35,6 +35,7 @@ models:
       +tags: stg
     dimensions:
       +tags: dim
+      +materialized: table
     facts:
       +tags: fct
     consolidation:
