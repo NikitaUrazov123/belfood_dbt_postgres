@@ -1,10 +1,10 @@
 {{ config(
     materialized='view',
-    tags=["int"]
+    tags=["exp"]
 ) }}
 
 with fact as 
-(select * from {{ ref("fact_sales") }}),
+(select * from {{ ref("fct_sales") }}),
 
 dim_nomenclature as 
 (select * from {{ ref("dim_nomenclature")}}),

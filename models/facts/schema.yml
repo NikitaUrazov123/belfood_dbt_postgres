@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: "fact_sales"
+  - name: "fct_sales"
     description: "Таблица факта продаж"
     columns:
      - name: key_record
@@ -9,5 +9,5 @@ models:
        data-tests:
         - not_null
         - unique
-  - name: "fact_supplies"
+  - name: "fct_supplies"
     description: "Таблица факта остатков товаров на складах"

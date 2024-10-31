@@ -5,7 +5,7 @@ name: 'clickhouse'
 version: '1.0.0'
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'clickhouse_belfood'
+profile: 'clickhouse_belfood_analytics'
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -36,4 +36,11 @@ models:
     dimensions:
       +tags: dim
     facts:
-      +tags: fact
+      +tags: fct
+    consolidation:
+      exposure:
+        +tags: exp
+      marts:
+        +tags: mrt
+      reports:
+        +tags: rpt
