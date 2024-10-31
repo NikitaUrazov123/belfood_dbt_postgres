@@ -12,6 +12,7 @@ filtred as
 (
     select * from source
     where `ПометкаУдаления` = False
+    and `ЭтоГруппа` =False
 )
 
 select * from filtred

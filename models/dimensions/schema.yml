@@ -1,6 +1,16 @@
 version: 2
 
 models:
+
+  - name: "dim_sale_docs_goods"
+    description: "Таблица с товарами из табличной части документов \"РеализацияТоваровУслуг\""
+    columns:
+     - name: key_record
+       description: "Уникальный ключ записи"
+       data-tests:
+        - not_null
+        - unique
+
   - name: subdim_Общие_наименования
     description: "Таблица с общими наименованиями продуктов"
   
@@ -9,6 +19,8 @@ models:
 
   - name: dim_nomenclature
     description: "Таблица фактов продаж"
+
+  - name: dim_sale_docs
 
   - name: subdim_С_НоменклатурныеГруппы
     description: "Таблица с номенклатурными группами. Пример: \"Детское питание\", \"Десткое питание: гуалапак\""
@@ -24,6 +36,3 @@ models:
 
   - name: subdim_nbrb_exrate_RUB
     description: "Курс обмена НБ РБ RUB"
-    
-
-

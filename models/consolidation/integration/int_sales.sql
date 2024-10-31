@@ -35,18 +35,19 @@ dim_sale_docs_goods as
 
 joined as
 (
-select *
+select 
+*
 from fact
 left join dim_nomenclature on dim_nomenclature."СсылкаГуид" = fact.`НоменклатураГуид`
-left join dim_calendar on dim_calendar.date=toDate(fact."Период")
-left join dim_sale_docs on dim_sale_docs."СсылкаГуид" = fact."ДокументПродажиГуид"
+left join dim_calendar on dim_calendar.date=toDate(fact."Период продаж")
+left join dim_sale_docs_goods using(key_record)
+--left join dim_sale_docs on dim_sale_docs.`СсылкаГуид` = fact.`ДокументПродажиГуид`
+--left join dim_orders on dim_orders.`СсылкаГуид` = dim_sale_docs.`СделкаГуид`
 --left join dim_purchase_returns on 
-left join dim_orders on dim_orders."СсылкаГуид" = dim_sale_docs."СделкаГуид"
 --left join dim_shops as sale_docs_shops on sale_docs_shops."СсылкаГуид" = dim_sale_docs."ТорговыйОбъектГуид"
 --left join dim_shops as order_docs_shops on order_docs_shops."СсылкаГуид" = dim_orders."ТорговыйОбъектГуид"
 --left join dim_client on dim_client."СсылкаГуид" = fact.`КонтрагентГуид`
---left join dim_nbrb_exrates on dim_nbrb_exrates.date = toDate(fact."Период")
---left join dim_sale_docs_goods on concat(dim_sale_docs_goods.`НомерСтроки`, dim_sale_docs_goods."СсылкаГуид")  concat(fact.`НомерСтроки`,fact.`РегистраторГуид`)
+left join dim_nbrb_exrates on dim_nbrb_exrates.date = toDate(fact."Период продаж")
 )
 
 select * from joined
