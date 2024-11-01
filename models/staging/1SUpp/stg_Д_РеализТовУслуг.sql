@@ -1,5 +1,5 @@
 {{ config(
-    materialized='view'
+    materialized='incremental'
 ) }}
 
 with
@@ -13,3 +13,7 @@ filtred as
     where `ПометкаУдаления` = False
 )
 select * from filtred
+
+{% if is_incremental() %}
+  where "Дата" >= dateAdd(day, -10, today())
+{% endif %}
