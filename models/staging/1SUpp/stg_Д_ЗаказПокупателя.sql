@@ -1,16 +1,16 @@
 {{ config(
-    materialized='table',
-    tags=["stg"]
+    materialized='table'
 ) }}
 
 with
 source as (
-select * from {{ source('Stage1CUpp', 'Д_ЗаказПокупателя') }}),
+select * from {{ source('Stage1CUpp', 'Д_ЗаказПокупателя') }}
+),
 
 filtred as
 (
     select * from source
-    where `ПометкаУдаления` = False
+    where "ПометкаУдаления" = False
 )
 
 select * from filtred

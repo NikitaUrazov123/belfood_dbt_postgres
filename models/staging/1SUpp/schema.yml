@@ -1,14 +1,17 @@
 version: 2
 
 sources:
-  - name: analytics_shipments
-    schema: analytics_shipments
+  - name: refs
+    schema: refs
     tables:
       - name: calendar2
-      - name: nbrb_exrates 
+  - name: api_nbrb_by_exrates
+    schema: api_nbrb_by_exrates
+    tables:
+      - name: rates 
 
   - name: Stage1CUpp
-    schema: Stage1CUpp
+    schema: Stage1CUpp_stage
     tables:
       - name: "РС_ЗначенияСвойствОбъектов"
       - name: "Д_ЗаказПокупателя"

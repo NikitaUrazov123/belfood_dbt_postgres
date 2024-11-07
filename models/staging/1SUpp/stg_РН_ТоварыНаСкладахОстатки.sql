@@ -1,5 +1,6 @@
 {{ config(
-    materialized='incremental'
+    materialized='incremental',
+    unique_key='key_record'
 ) }}
 
 with
@@ -12,6 +13,7 @@ signed as
 (
     SELECT
     *
+    ,concat(to_char("ДатаОстатка", 'DD-MM-YYYY HH:MI:SS'), "СерияНоменклатурыГуид","ХарактеристикаНоменклатуры", "КачествоГуид", "НоменклатураГуид", "СкладГуид") as key_record
     ,now() as updated_at 
     FROM source
 ) 
@@ -19,5 +21,5 @@ signed as
 select * from signed
 
 {% if is_incremental() %}
-  where "ДатаОстатка" >= dateAdd(day, -10, today())
+  where "ДатаОстатка"::date >= CURRENT_DATE - interval '10 days'
 {% endif %}

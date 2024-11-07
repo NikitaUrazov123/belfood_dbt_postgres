@@ -1,7 +1,6 @@
 {{
     config(
-        materialized='view',
-        tags =["fct"]
+        materialized='view'
     )
 }}
 

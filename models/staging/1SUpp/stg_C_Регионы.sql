@@ -7,6 +7,6 @@ select * from {{ source('Stage1CUpp', 'С_Регионы') }}),
 
 filtred as
 (select * from source
-where `ПометкаУдаления` = False)
+where "ПометкаУдаления" = false)
 
 select * from filtred

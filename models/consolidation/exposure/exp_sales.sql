@@ -3,51 +3,25 @@
     tags=["exp"]
 ) }}
 
-with fact as 
-(select * from {{ ref("fct_sales") }}),
-
-dim_nomenclature as 
-(select * from {{ ref("dim_nomenclature")}}),
-
-dim_calendar as
-(select* from {{ ref("dim_calendar") }}),
-
-dim_purchase_returns as 
-(select * from {{ ref("dim_purchase_returns")}}),
-
-dim_orders as
-(select * from {{ ref("dim_orders")}}),
-
-dim_sale_docs as
-(select * from {{ ref("dim_sale_docs")}}),
-
-dim_shops as 
-(select * from {{ ref("dim_shops")}}),
-
-dim_client as 
-(select * from {{ ref("dim_client")}}),
-
-dim_nbrb_exrates as 
-(select * from {{ ref("dim_nbrb_exrates")}}),
-
-dim_sale_docs_goods as 
-(select * from {{ ref("dim_sale_docs_goods")}}),
-
-joined as
-(
-select 
-*
-from fact
-left join dim_nomenclature on dim_nomenclature."СсылкаГуид" = fact.`НоменклатураГуид`
-left join dim_calendar on dim_calendar.date=toDate(fact."Период продаж")
-left join dim_sale_docs_goods on fact.key_record = dim_sale_docs_goods.key_record
-left join dim_sale_docs on dim_sale_docs.`СсылкаГуид` = dim_sale_docs_goods.`СсылкаГуид`
-left join dim_orders on dim_orders.`СсылкаГуид` = dim_sale_docs.`СделкаГуид`
-left join dim_client on dim_client."СсылкаГуид" = fact.`КонтрагентГуид`
---left join dim_purchase_returns on 
---left join dim_shops as sale_docs_shops on sale_docs_shops."СсылкаГуид" = dim_sale_docs."ТорговыйОбъектГуид"
---left join dim_shops as order_docs_shops on order_docs_shops."СсылкаГуид" = dim_orders."ТорговыйОбъектГуид"
-left join dim_nbrb_exrates on dim_nbrb_exrates.date = toDate(fact."Период продаж")
-)
-
-select * from joined
+SELECT 
+{{star_exclude_guid(ref('fct_sales'), additional_excludes=["key_record"])}},
+{{star_exclude_guid(ref('dim_nomenclature'))}},
+{{star_exclude_guid(ref('dim_calendar'))}},
+{{star_exclude_guid(ref('dim_nbrb_exrates'))}},
+{{star_exclude_guid(ref('dim_sale_docs_goods'), additional_excludes=["key_record"])}},
+{{star_exclude_guid(ref('dim_sale_docs'))}},
+{{star_exclude_guid(ref('dim_orders'))}}
+FROM 
+{{ ref('fct_sales') }} as fct
+left join {{ ref('dim_nomenclature') }} as dim_nom 
+            on fct."НоменклатураГуид"= dim_nom."СсылкаГуид"
+left join {{ ref("dim_calendar") }} as dim_cal
+            on fct."Период продаж"::date = dim_cal.cdate::date
+left join {{ ref("dim_nbrb_exrates") }} as dim_exrates
+            on dim_exrates.date::date = fct."Период продаж"::date
+left join {{ ref("dim_sale_docs_goods") }} as dim_sale_goods
+            on dim_sale_goods.key_record = fct.key_record
+left join {{ ref("dim_sale_docs") }} as dim_sd
+            on dim_sd."СсылкаГуид" = dim_sale_goods."СсылкаГуид" 
+left join {{ ref("dim_orders") }} as dim_orders
+            on dim_orders."СсылкаГуид" = dim_sd."СделкаГуид"

@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    tags=["stg"]
+    unique_key='key_record'
 ) }}
 
 with
@@ -12,13 +12,14 @@ source as
 signed as 
 (
     SELECT 
-    *,
-    now() as updated_at
+    *
+    ,concat("РегистраторГуид", "НомерСтроки") as key_record
+    ,now() as updated_at
     FROM source
 )
 
 select * from signed
 
 {% if is_incremental() %}
-  where "Период" >= dateAdd(month, -1, today())
+  where "Период"::date >= CURRENT_DATE - interval '2 months'
 {% endif %}

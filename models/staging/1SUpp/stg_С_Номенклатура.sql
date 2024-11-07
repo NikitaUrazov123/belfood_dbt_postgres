@@ -10,9 +10,9 @@ source as
 filtred as 
 (select * from source
 	where 
-		`ПометкаУдаления` = False
+		"ПометкаУдаления" = False
 	and 
-		`ЭтоГруппа` = False
+		"ЭтоГруппа" = False
 )
 
 select * from filtred
