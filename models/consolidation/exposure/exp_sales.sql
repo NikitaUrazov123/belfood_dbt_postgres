@@ -3,17 +3,19 @@
     tags=["exp"]
 ) }}
 
+
 SELECT 
 {{star_exclude_guid(ref('fct_sales'), additional_excludes=["key_record"])}},
 {{star_exclude_guid(ref('dim_nomenclature'))}},
 {{star_exclude_guid(ref('dim_calendar'))}},
 {{star_exclude_guid(ref('dim_nbrb_exrates'))}},
+{{star_exclude_guid(ref('dim_client'))}}
 {{star_exclude_guid(ref('dim_sale_docs_goods'), additional_excludes=["key_record"])}},
 {{star_exclude_guid(ref('dim_sale_docs'))}},
 {{star_exclude_guid(ref('dim_orders'))}},
 {{star_exclude_guid(ref('dim_purchase_returns'))}},
 {{star_exclude_guid(ref('dim_nomeclature_series'))}},
-{{star_exclude_guid(ref('dim_client'))}}
+
 FROM 
 {{ ref('fct_sales') }}
 left join {{ ref('dim_nomenclature') }}
