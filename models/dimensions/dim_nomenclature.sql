@@ -2,25 +2,50 @@
     materialized='table',
     tags=["dim"]
 ) }}
+with nomenclature as 
+(SELECT * FROM {{ ref("stg_С_Номенклатура") }}),
 
-{{star_exclude_guid(ref("stg_С_Номенклатура"))}},
-{{star_exclude_guid(ref("subdim_Общие_наименования"))}},
-{{star_exclude_guid(ref("subdim_мВкус"))}},
-{{star_exclude_guid(ref("subdim_мКатегорияВозраст"))}},
-{{star_exclude_guid(ref("subdim_мКатегорияКомпонент"))}},
-{{star_exclude_guid(ref("subdim_мКатегорияПродукт"))}},
-{{star_exclude_guid(ref("subdim_ТипПродукции"))}},
-{{star_exclude_guid(ref("subdim_ГруппаТоваровДляОтчета"))}},
-{{star_exclude_guid(ref("subdim_Бренд"))}},
-{{star_exclude_guid(ref("subdim_ВидДП"))}},
-{{star_exclude_guid(ref("subdim_ВидУпаковки"))}},
-{{star_exclude_guid(ref('subdim_Штрихкоды'))}},
-{{star_exclude_guid(ref("subdim_С_НоменклатурныеГруппы"))}},
-{{star_exclude_guid(ref("subdim_Литраж"))}},
+common_names as
+(select * from {{ref ("subdim_Общие_наименования")}}),
+
+m_taste as
+(select * from {{ ref("subdim_мВкус") }}),
+
+m_age as
+(select * from {{ ref("subdim_мКатегорияВозраст") }}),
+
+m_component as 
+(select * from {{ ref("subdim_мКатегорияКомпонент") }}),
+
+m_prod_category as 
+(select * from {{ ref("subdim_мКатегорияПродукт") }}),
+
+prod_type as
+(select * from {{ ref("subdim_ТипПродукции") }}),
+
+report_group as 
+(select * from {{ ref("subdim_ГруппаТоваровДляОтчета") }}),
+
+brand as 
+(select * from {{ ref("subdim_Бренд") }}),
+
+bud_category as
+(select * from {{ ref("subdim_ВидДП") }}),
+
+package_type as 
+(select * from {{ ref("subdim_ВидУпаковки") }}),
+
+bar_codes as 
+(select * from {{ref('subdim_Штрихкоды')}}),
+/*
+nomenclature_groups as
+(select * from {{ ref("subdim_С_НоменклатурныеГруппы") }}),
+*/
+volume as 
+(select* from {{ ref("subdim_Литраж") }}),
 
 joined as
-(select * 
-from nomenclature 
+(select * from nomenclature 
 left join common_names on nomenclature."СсылкаГуид" = common_names."ОбъектГуид"
 left join bar_codes on nomenclature."СсылкаГуид" = bar_codes."ВладелецГуид"
 --left join nomenclature_groups on nomenclature."НоменклатурнаяГруппаГуид" = nomenclature_groups."СсылкаГуид"
