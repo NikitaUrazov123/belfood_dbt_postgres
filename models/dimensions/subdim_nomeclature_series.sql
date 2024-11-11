@@ -1,5 +1,5 @@
 {{ config(
-    tags=["dim"]
+    tags=["subdim"]
 ) }}
 
 with 
