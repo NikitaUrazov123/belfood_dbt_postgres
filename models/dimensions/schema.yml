@@ -7,23 +7,47 @@ models:
     columns:
      - name: key_record
        description: "Уникальный ключ записи"
-       data-tests:
+       data_tests:
         - not_null
         - unique
 
   - name: subdim_Общие_наименования
     description: "Таблица с общими наименованиями продуктов"
+    columns:
+     - name: "ОбъектГуид"
+       description: "Уникальный ключ записи"
+       data_tests:
+        - not_null
+        - unique
   
   - name: subdim_Штрихкоды
     description: "Справочник штрихкодов"
+    columns:
+     - name: "ВладелецГуид"
+       description: "Уникальный ключ записи"
+       data_tests:
+        - not_null
+        - unique
 
   - name: dim_nomenclature
     description: "Таблица фактов продаж"
+    columns:
+     - name: "СсылкаГуид"
+       description: "Уникальный ключ записи"
+       data_tests:
+        - not_null
+        - unique
 
   - name: dim_sale_docs
 
   - name: subdim_С_НоменклатурныеГруппы
     description: "Таблица с номенклатурными группами. Пример: \"Детское питание\", \"Десткое питание: гуалапак\""
+    columns:
+     - name: "СсылкаГуид"
+       description: "Уникальный ключ записи"
+       data_tests:
+        - not_null
+        - unique
 
   - name: dim_calendar
     description: "Календарь"

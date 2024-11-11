@@ -8,16 +8,17 @@ with
 base as
 (
 SELECT 
-{{star_exclude_guid(ref('fct_sales'), additional_excludes=["key_record"])}}
+{{star_exclude_guid(ref('fct_sales'), additional_excludes=["key_record", "Номер строки продаж"])}}
 ,fct_sales.key_record as key
 ,{{star_exclude_guid(ref('dim_nomenclature'))}}
 ,{{star_exclude_guid(ref('dim_calendar'))}}
 ,{{star_exclude_guid(ref('dim_nbrb_exrates'))}}
 ,{{star_exclude_guid(ref('dim_client'))}}
-,{{star_exclude_guid(ref('dim_sale_docs'), additional_excludes=["key_record"])}}
-,{{star_exclude_guid(ref('dim_returns'), additional_excludes=["key_record"])}}
+,{{star_exclude_guid(ref('dim_sale_docs'), additional_excludes=["key_record", "Номер строки товара реализации"])}}
+,{{star_exclude_guid(ref('dim_returns'), additional_excludes=["key_record", "Номер строки документа возврата"])}}
 ,{{star_exclude_guid(ref('dim_orders'))}}
-,dim_country_codes."alpha_2" as "Код страны ISO"
+,dim_country_codes."alpha_2" as "Код страны ISO контрагента"
+
 ,coalesce(dim_sale_docs."Гуид торгового объекта", dim_returns."Гуид торгового объекта") as "Гуид торгового объекта"
 
 
@@ -38,8 +39,9 @@ left join {{ ref("dim_returns") }}
 left join {{ ref("dim_orders") }}
             on dim_orders."СсылкаГуид" = fct_sales."ЗаказПокупателяГуид"
 left join {{ ref("dim_country_codes") }}
-            on dim_country_codes."Регион" = dim_client."Регион контрагента"
+            on dim_country_codes."Регион" = dim_client."Регион контрагента"         
 ),
+
 
 enrichment_shops as
 (
@@ -50,5 +52,6 @@ enrichment_shops as
     left join {{ ref("subdim_shops") }}
                 on subdim_shops."СсылкаГуид" = "Гуид торгового объекта"
 )
+
 
 select * from base
