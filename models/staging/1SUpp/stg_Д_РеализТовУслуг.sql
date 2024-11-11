@@ -1,5 +1,5 @@
 {{ config(
-    materialized='incremental'
+    materialized='table'
 ) }}
 
 with
@@ -13,7 +13,3 @@ filtred as
     where "ПометкаУдаления" = False
 )
 select * from filtred
-
-{% if is_incremental() %}
-  where "Дата"::date >= CURRENT_DATE - interval '2 months'
-{% endif %}

@@ -1,11 +1,13 @@
 {{ config(
+    materialized='view',
     tags=["dim"]
 ) }}
 
 
 SELECT 
-{{star_exclude_guid(ref('subdim_sale_docs_goods'))}},
-{{star_exclude_guid(ref('subdim_sale_docs'))}}
+{{star_exclude_guid(ref('subdim_sale_docs_goods'))}}
+,{{star_exclude_guid(ref('subdim_sale_docs'))}},
+subdim_sale_docs."ТорговыйОбъектГуид" as "Гуид торгового объекта"
 
 
 FROM 

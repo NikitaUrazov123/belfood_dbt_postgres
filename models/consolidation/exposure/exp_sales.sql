@@ -3,15 +3,23 @@
     tags=["exp"]
 ) }}
 
+
+with 
+base as
+(
 SELECT 
-{{star_exclude_guid(ref('fct_sales'), additional_excludes=["key_record"])}},
-{{star_exclude_guid(ref('dim_nomenclature'))}},
-{{star_exclude_guid(ref('dim_calendar'))}},
-{{star_exclude_guid(ref('dim_nbrb_exrates'))}},
-{{star_exclude_guid(ref('dim_client'))}},
-{{star_exclude_guid(ref('dim_sale_docs'), additional_excludes=["key_record"])}},
-{{star_exclude_guid(ref('dim_returns'), additional_excludes=["key_record"])}},
-{{star_exclude_guid(ref('dim_orders'))}}
+{{star_exclude_guid(ref('fct_sales'), additional_excludes=["key_record"])}}
+,fct_sales.key_record as key
+,{{star_exclude_guid(ref('dim_nomenclature'))}}
+,{{star_exclude_guid(ref('dim_calendar'))}}
+,{{star_exclude_guid(ref('dim_nbrb_exrates'))}}
+,{{star_exclude_guid(ref('dim_client'))}}
+,{{star_exclude_guid(ref('dim_sale_docs'), additional_excludes=["key_record"])}}
+,{{star_exclude_guid(ref('dim_returns'), additional_excludes=["key_record"])}}
+,{{star_exclude_guid(ref('dim_orders'))}}
+,dim_country_codes."alpha_2" as "Код страны ISO"
+,coalesce(dim_sale_docs."Гуид торгового объекта", dim_returns."Гуид торгового объекта") as "Гуид торгового объекта"
+
 
 FROM 
 {{ ref('fct_sales') }}
@@ -28,4 +36,19 @@ left join {{ ref("dim_sale_docs") }}
 left join {{ ref("dim_returns") }}
             on fct_sales.key_record = dim_returns.key_record
 left join {{ ref("dim_orders") }}
-            on dim_orders."СсылкаГуид" = fct_sales."ЗаказПокупателяГуид"     
+            on dim_orders."СсылкаГуид" = fct_sales."ЗаказПокупателяГуид"
+left join {{ ref("dim_country_codes") }}
+            on dim_country_codes."Регион" = dim_client."Регион контрагента"
+),
+
+enrichment_shops as
+(
+    select 
+    base.*
+    ,{{star_exclude_guid(ref('subdim_shops'))}}
+    from base
+    left join {{ ref("subdim_shops") }}
+                on subdim_shops."СсылкаГуид" = "Гуид торгового объекта"
+)
+
+select * from base

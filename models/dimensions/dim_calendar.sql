@@ -1,5 +1,5 @@
 {{ config(
-    materialized='table',
+    materialized='view',
     tags=["no_update"]
 ) }}
 

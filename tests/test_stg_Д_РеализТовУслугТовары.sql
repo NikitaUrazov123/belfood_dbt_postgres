@@ -1,3 +1,7 @@
+{{ config(
+    tags=["tst"]
+) }}
+
 select
 key_record
 ,count(*)
