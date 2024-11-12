@@ -54,4 +54,4 @@ enrichment_shops as
 )
 
 
-select * from base
+select * from enrichment_shops
