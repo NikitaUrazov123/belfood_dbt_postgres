@@ -13,6 +13,11 @@ chain_prop as
 	select * from {{ ref("subdim_Торговое_наименование") }}
 ),
 
+sales_chanel_prop as
+(
+	select * from {{ ref("subdim_Тип_канала") }}
+),
+
 renamed as
 (
     select
@@ -66,13 +71,17 @@ renamed as
 	--"ГруппаДоступаКонтрагентаГуид",
 	--"юи_СтранаРегистрацииГуид",
 	chain_prop."Значение" as "Торговое наименование контрагента",
+	sales_chanel_prop."Значение" as "Тип каналконтрагента",
 	"СсылкаГуид"
 	--"РодительГуид",
 	--"__Partition"
 	
-	from 
-	source left join chain_prop
+	from source
+	left join chain_prop
 	on source."СсылкаГуид"=chain_prop."ОбъектГуид"
+	left join sales_chanel_prop
+	on source."СсылкаГуид"=sales_chanel_prop."ОбъектГуид"
+
 )
 
 select * from renamed
