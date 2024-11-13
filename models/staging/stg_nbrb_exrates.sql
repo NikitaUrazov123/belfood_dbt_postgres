@@ -1,6 +1,7 @@
 {{ config(
     materialized='incremental',
-    unique_key='key_record'
+    unique_key='key_record',
+    tags=["incremental"]
 ) }}
 
 with 

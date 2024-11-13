@@ -1,5 +1,5 @@
 {{ config(
-    materialized='incremental',
+    materialized='view',
     unique_key='key_record'
 ) }}
 
@@ -18,7 +18,3 @@ signed as
 )
     
 select * from signed
-
-{% if is_incremental() %}
-  where "Дата"::date >= CURRENT_DATE - interval '2 months'
-{% endif %}
