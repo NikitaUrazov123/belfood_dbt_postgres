@@ -1,7 +1,7 @@
 {% snapshot snap_stg_D_ZakazPokupatelyaTovary %}
     {{
       config(
-        target_schema='dbt_snapshots',
+        target_schema='dbt_test' if target.name == "dev" else 'dbt_snapshots',
         unique_key='key_record',
         strategy='timestamp',
         updated_at='"Дата"'
