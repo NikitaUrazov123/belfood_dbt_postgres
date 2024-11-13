@@ -8,6 +8,11 @@ source as
     select * from {{ ref("stg_С_Контрагенты") }}
 ),
 
+chain_prop as
+(
+	select * from {{ ref("subdim_Торговое_наименование") }}
+),
+
 renamed as
 (
     select
@@ -60,10 +65,14 @@ renamed as
 	--"РегионГуид",
 	--"ГруппаДоступаКонтрагентаГуид",
 	--"юи_СтранаРегистрацииГуид",
+	chain_prop."Значение" as "Торговое наименование контрагента",
 	"СсылкаГуид"
 	--"РодительГуид",
 	--"__Partition"
-    from source
+	
+	from 
+	source left join chain_prop
+	on source."СсылкаГуид"=chain_prop."ОбъектГуид"
 )
 
 select * from renamed
