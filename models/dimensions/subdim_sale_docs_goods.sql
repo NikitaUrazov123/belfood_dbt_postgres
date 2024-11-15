@@ -12,6 +12,7 @@ source as
 renamed as
 (
     select 
+	{{star_exclude_guid(ref('subdim_nomeclature_series'))}},
     	--"Ссылка",
 	"НомерСтроки" as "Номер строки тов. реализации",
 	--"ЕдиницаИзмерения",
@@ -53,7 +54,7 @@ renamed as
 	"КороткиеСроки" as "Короткие сроки тов. реализации",
 	"Дата" as "Дата тов. реализации",
 	--"ПараметрДата",
-	"СсылкаГуид",
+	source."СсылкаГуид" as "СсылкаГуид",
 	--"ЕдиницаИзмеренияГуид",
 	--"ЕдиницаИзмеренияМестГуид",
 	--"КачествоГуид",
@@ -76,6 +77,8 @@ renamed as
 	key_record
 	--"__Partition"
     from source
+	left join {{ ref('subdim_nomeclature_series') }}
+	on source."СерияНоменклатурыГуид" = subdim_nomeclature_series."СсылкаГуид"
 )
 select * from renamed
 

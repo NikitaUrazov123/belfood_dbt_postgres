@@ -14,6 +14,7 @@ sources:
   - name: Stage1CUpp
     schema: Stage1CUpp_stage
     tables:
+      - name: "С_ЕдиницыИзмерения"
       - name: "РС_ЗначенияСвойствОбъектов"
       - name: "Д_ЗаказПокупателя"
       - name: "С_Номенклатура" 
@@ -48,6 +49,14 @@ models:
         - unique
   - name: "stg_Д_ЗаказПокупателя"
     description: "Актуальные заказы покупателей из 1С"
+    columns:
+     - name: "СсылкаГуид"
+       description: "Гуид объекта"
+       data-tests:
+        - not_null
+        - unique
+  - name: "stg_С_СерииНоменклатуры"
+    description: "Серии номенклатуры из 1С"
     columns:
      - name: "СсылкаГуид"
        description: "Гуид объекта"
