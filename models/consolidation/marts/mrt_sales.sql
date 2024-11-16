@@ -24,10 +24,7 @@ defined_props_first as
     ])}}
     ,"Количество продаж" as "Количество, шт"
     ,"Стоимость продаж" as "Сумма продажи c НДС, BYN"
-    ,"Стоимость продаж"-"НДС продаж" as "Сумма продажи без НДС, BYN"
-    ,round(("Стоимость продаж"/eur*eur_scale)::numeric,2) as "Сумма продажи без НДС, EUR"
-    ,round(("Стоимость продаж"/rub*rub_scale)::numeric,2) as "Сумма продажи без НДС, RUB"
-    ,round(("Стоимость продаж"/usd*usd_scale)::numeric,2) as "Сумма продажи без НДС, USD"
+    ,"Стоимость продаж"::numeric-"НДС продаж"::numeric as "Сумма продажи без НДС, BYN"
     ,coalesce(
         "Серия номен тов. реализации"
         ,"Серия номен док. возврата"
@@ -73,6 +70,9 @@ defined_props_second as
 (
     select 
     *
+    ,round(("Сумма продажи без НДС, BYN"/eur*eur_scale)::numeric,2) as "Сумма продажи без НДС, EUR"
+    ,round(("Сумма продажи без НДС, BYN"/rub*rub_scale)::numeric,2) as "Сумма продажи без НДС, RUB"
+    ,round(("Сумма продажи без НДС, BYN"/usd*usd_scale)::numeric,2) as "Сумма продажи без НДС, USD"
     ,case
         when "Срок реализации, %" <0.2 then '<20%'
         when "Срок реализации, %" between 0.2 and 0.5 then '<50%'
