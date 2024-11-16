@@ -25,9 +25,9 @@ defined_props_first as
     ,"Количество продаж" as "Количество, шт"
     ,"Стоимость продаж" as "Сумма продажи c НДС, BYN"
     ,"Стоимость продаж"::numeric-"НДС продаж"::numeric as "Сумма продажи без НДС, BYN"
-    ,round(("Стоимость продаж"::numeric-"НДС продаж"::numeric/eur*eur_scale)::numeric,2) as "Сумма продажи без НДС, EUR"
-    ,round(("Стоимость продаж"::numeric-"НДС продаж"::numeric/rub*rub_scale)::numeric,2) as "Сумма продажи без НДС, RUB"
-    ,round(("Стоимость продаж"::numeric-"НДС продаж"::numeric/usd*usd_scale)::numeric,2) as "Сумма продажи без НДС, USD"
+    ,round((("Стоимость продаж"::numeric-"НДС продаж"::numeric)/eur*eur_scale)::numeric,2) as "Сумма продажи без НДС, EUR"
+    ,round((("Стоимость продаж"::numeric-"НДС продаж"::numeric)/rub*rub_scale)::numeric,2) as "Сумма продажи без НДС, RUB"
+    ,round((("Стоимость продаж"::numeric-"НДС продаж"::numeric)/usd*usd_scale)::numeric,2) as "Сумма продажи без НДС, USD"
     ,coalesce(
         "Серия номен тов. реализации"
         ,"Серия номен док. возврата"
