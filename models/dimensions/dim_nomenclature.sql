@@ -23,8 +23,8 @@ m_prod_category as
 prod_type as
 (select * from {{ ref("subdim_ТипПродукции") }}),
 
-report_group as 
-(select * from {{ ref("subdim_ГруппаТоваровДляОтчета") }}),
+type_of_production as 
+(select * from {{ ref("subdim_Вид_производства") }}),
 
 brand as 
 (select * from {{ ref("subdim_Бренд") }}),
@@ -95,7 +95,7 @@ bar_codes."Штрихкод" as "Штрихкод номенклат."
 , package_type."Значение" as "Вид упаковки номенклат."
 , brand."Значение" as "Бренд номенклат."
 , bud_category."Значение" as "Вид ДП номенклат."
-, report_group."Значение" as "Направление продукта номенклат."
+, type_of_production."Значение" as "Направление продукта номенклат."
 , prod_type."Значение" as "Тип продукции номенклат."
 , volume."Значение" as "Литраж номенклат."
 ,fac_conv_to_liters."Коэфициент в литры" as "Коэф. перевода в литры"
@@ -111,7 +111,7 @@ left join package_type on nomenclature."СсылкаГуид" = package_type."О
 left join brand on nomenclature."СсылкаГуид" = brand."ОбъектГуид"
 left join bud_category on nomenclature."СсылкаГуид" = bud_category."ОбъектГуид"
 left join prod_type on nomenclature."СсылкаГуид" = prod_type."ОбъектГуид"
-left join report_group on nomenclature."СсылкаГуид" = report_group."ОбъектГуид"
+left join type_of_production on nomenclature."СсылкаГуид" = type_of_production."ОбъектГуид"
 left join volume on nomenclature."СсылкаГуид" = volume."ОбъектГуид"
 left join fac_conv_to_liters on fac_conv_to_liters."ВладелецГуид"::text = nomenclature."СсылкаГуид"::text
 )
