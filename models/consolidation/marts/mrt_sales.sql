@@ -52,7 +52,7 @@ defined_props_first as
         else null
     end as "Ответственный продажи"
     ,case
-        when "Направление продукта номенклат." = 'Co-packing' then 'Co-packing'
+        when "Направление продукта номенклат." = 'Давальческое' then 'Давальческое'
         when coalesce("Код страны ISO контрагента", 'BLR')  = 'BLR' then 'Беларусь'
         when "Регион контрагента" like '%comme%' then 'E-commerce'
         when "Регион торгового объекта" like '%comme%' then 'E-commerce'
