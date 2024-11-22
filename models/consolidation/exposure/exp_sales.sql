@@ -18,10 +18,7 @@ SELECT
 ,{{star_exclude_guid(ref('dim_returns'), additional_excludes=["key_record", "Номер строки документа возврата"])}}
 ,{{star_exclude_guid(ref('dim_orders'))}}
 ,dim_country_codes."alpha_3" as "Код страны ISO контрагента"
-
 ,coalesce(dim_sale_docs."Гуид торгового объекта", dim_returns."Гуид торгового объекта") as "Гуид торгового объекта"
-
-
 FROM 
 {{ ref('fct_sales') }}
 left join {{ ref('dim_nomenclature') }}
