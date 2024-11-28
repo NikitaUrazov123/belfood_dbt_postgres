@@ -10,7 +10,7 @@ select * from {{ source('Stage1CUpp', 'С_СерииНоменклатуры') }
 filtred as
 (
     select * from source
-    where "ПометкаУдаления" = False
+    --where "ПометкаУдаления" = False
 )
 
 select * from filtred

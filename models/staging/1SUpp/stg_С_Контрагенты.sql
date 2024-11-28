@@ -11,8 +11,8 @@ source as
 filtred as
 (
     select * from source
-    where "ПометкаУдаления" = False
-    and "ЭтоГруппа" =False
+    --where "ПометкаУдаления" = False and
+     where "ЭтоГруппа" =False
 )
 
 select * from filtred

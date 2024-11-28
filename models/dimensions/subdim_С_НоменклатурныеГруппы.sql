@@ -11,6 +11,5 @@ SELECT
 FROM
 	{{ source('Stage1CUpp', 'С_НоменклатурныеГруппы') }}
 where 
-    "ПометкаУдаления" = False
-and
+    --"ПометкаУдаления" = False and
     "ЭтоГруппа" = False
