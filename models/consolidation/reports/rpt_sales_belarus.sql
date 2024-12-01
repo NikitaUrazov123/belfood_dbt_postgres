@@ -2,10 +2,17 @@
     materialized='view'
 ) }}
 
-SELECT * from {{ ref("mrt_sales") }}
-WHERE
-"Категория направления" in ('Беларусь', 'e-commerce РБ')
-and
-"Категория направления" not like '%pack%'
-and "Регион торгового объекта" not in ('Монголия')
-and "Тип канала контрагента" not in ('Экспорт')
+with 
+filtred as
+(
+    SELECT * 
+    FROM {{ ref("mrt_sales") }}
+    WHERE
+        COALESCE("Категория направления", '') IN ('Беларусь', 'e-commerce РБ')
+        AND COALESCE("Категория направления", '') NOT LIKE '%pack%'
+        AND COALESCE("Регион торгового объекта", '') NOT IN ('Монголия')
+        AND COALESCE("Тип канала контрагента", '') != 'Экспорт'
+)
+
+SELECT * 
+FROM filtred

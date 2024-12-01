@@ -1,5 +1,8 @@
 {{ config(
-    materialized='table'
+    materialized='table',
+    tags=["incremental"],
+    unique_key='key',
+    incremental_strategy='delete+insert'
 ) }}
 
 with 
@@ -13,7 +16,6 @@ defined_props_first as
     ,"Номер строки продаж" 
     ,"Номер строки док. возврата"
     ,"Номер строки тов. реализации"
-    ,"key"
     ,"eur"
     ,"eur_scale"
     ,"usd"
@@ -107,15 +109,21 @@ defined_props_second as
 
 filtred as
 (
-    select * from defined_props_second
-    where 
-    "Вид номенклат." in ('Товар', 'Продукция')
-	AND ("Регион контрагента" NOT IN ('Сотрудники', 'Матпомощь', 'Логистика'))
-	and ("Регион торгового объекта" NOT IN ('Матпомощь', 'Сотрудники'))
-	and ("Номенклатурная группа" not in ('Сырьё-товар', 'Сырьё и материалы', 'Упаковка', 'Упаковка-товар'))
-	AND ("Склад" NOT IN ('Витебск ГП (опытные партии)'))
-	AND ("Наименование торгового объекта" != 'ВПК Новка')
-	AND "Благ. помощь? док. реализации" = 'FALSE' or "Благ. помощь? док. реализации" is null
+    SELECT * 
+    FROM defined_props_second
+    WHERE 
+        COALESCE("Вид номенклат.", '') IN ('Товар', 'Продукция')
+        AND COALESCE("Регион контрагента", '') NOT IN ('Сотрудники', 'Матпомощь', 'Логистика')
+        AND COALESCE("Регион торгового объекта", '') NOT IN ('Матпомощь', 'Сотрудники')
+        AND COALESCE("Номенклатурная группа", '') NOT IN ('Сырьё-товар', 'Сырьё и материалы', 'Упаковка', 'Упаковка-товар')
+        AND COALESCE("Склад", '') NOT IN ('Витебск ГП (опытные партии)')
+        AND COALESCE("Наименование торгового объекта", '') != 'ВПК Новка'
+        AND (COALESCE("Благ. помощь? док. реализации", 'FALSE') = 'FALSE')
 )
 
-select * from filtred
+SELECT * 
+FROM filtred
+
+{% if is_incremental() %}
+where "Период продаж"::date >= CURRENT_DATE - interval '2 months'
+{% endif %}

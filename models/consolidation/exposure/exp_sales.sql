@@ -1,6 +1,8 @@
 {{ config(
-    materialized='table',
-    tags=["exp"]
+    materialized='incremental',
+    tags=["exp","incremental"],
+    unique_key='key',
+    incremental_strategy='delete+insert'
 ) }}
 
 
@@ -52,3 +54,9 @@ enrichment_shops as
 
 
 select * from enrichment_shops
+
+
+
+{% if is_incremental() %}
+where "Период продаж"::date >= CURRENT_DATE - interval '2 months'
+{% endif %}
