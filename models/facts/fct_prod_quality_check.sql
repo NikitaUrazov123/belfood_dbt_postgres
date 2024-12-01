@@ -8,7 +8,7 @@
 with
 source as 
 (
-    select * from {{ ref("stg_Д_КоррКачестваТоваровТовары") }}
+    select * from {{ ref('stg_Д_КорКачТовТовары') }}
 ),
 
 signed as

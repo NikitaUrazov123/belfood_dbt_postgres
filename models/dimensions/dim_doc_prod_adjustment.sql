@@ -5,7 +5,7 @@
 with
 source as
 (
- select * from {{ ref("stg_Д_КорректировкаКачестваТоваров") }}
+ select * from {{ ref('stg_Д_КорКачТоваров') }}
 )
 
 select * from source
