@@ -1,5 +1,5 @@
 {{ config(
-    materialized='table',
+    materialized='incremental',
     tags=["incremental"],
     unique_key='key',
     incremental_strategy='delete+insert'

@@ -32,14 +32,18 @@ models:
     # Config indicated by + and applies to all files under models/example/
     staging:
       +enabled: True
+      +on_schema_change: "sync_all_columns"
       +materialized: view
       +tags: stg
     dimensions:
+      +on_schema_change: "sync_all_columns"
       +tags: dim
       +materialized: view
     facts:
       +tags: fct
+      +on_schema_change: "sync_all_columns"
     consolidation:
+      +on_schema_change: "sync_all_columns"
       exposure:
         +tags: exp
       marts:
