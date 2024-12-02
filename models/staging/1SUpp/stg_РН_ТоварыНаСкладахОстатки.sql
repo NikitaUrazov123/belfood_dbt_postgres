@@ -39,7 +39,7 @@ columns_order_data_types as
     "СерияНоменклатурыГуид",
     "ДатаОстатка",
     CURRENT_TIMESTAMP as updated_at,
-    "КоличествоОстаток"
+    CAST("КоличествоОстаток" as real) as "КоличествоОстаток"
     from signed
     order by "ДатаОстатка" desc
 )
