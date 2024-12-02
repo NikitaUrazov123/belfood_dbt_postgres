@@ -9,6 +9,8 @@ filtred as
     FROM {{ ref("mrt_sales") }}
     WHERE
         "Направление продукта номенклат." = 'СТМ'
+        and
+        "Код страны контрагента" <> 'BLR'
 )
 SELECT * 
 FROM filtred
