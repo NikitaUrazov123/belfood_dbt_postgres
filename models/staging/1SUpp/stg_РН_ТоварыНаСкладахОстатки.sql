@@ -38,9 +38,10 @@ columns_order_data_types as
     "КачествоГуид", 
     "СерияНоменклатурыГуид",
     "ДатаОстатка",
-    updated_at
+    CURRENT_TIMESTAMP as updated_at,
     "КоличествоОстаток"
     from signed
+    order by "ДатаОстатка" desc
 )
 
 select * from columns_order_data_types
