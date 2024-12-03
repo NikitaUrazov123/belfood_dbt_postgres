@@ -68,4 +68,13 @@ models:
        data-tests:
         - not_null
         - unique
+
+  - name: "stg_С_Номенклатура"
+    description: "Справочник номенклатуры из 1С"
+    columns:
+     - name: "СсылкаГуид"
+       description: "Гуид объекта"
+       data-tests:
+        - not_null
+        - unique
         

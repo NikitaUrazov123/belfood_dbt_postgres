@@ -10,8 +10,8 @@ source as
 filtred as 
 (select * from source
 	where 
-		"ПометкаУдаления" = False
-	and 
+		--"ПометкаУдаления" = False
+	--and 
 		"ЭтоГруппа" = False
 )
 

@@ -37,6 +37,15 @@ models:
        data_tests:
         - not_null
         - unique
+  
+  - name: subdim_Коэф_номенклатуры_в_литры
+    description: "Литраж номенклатуры"
+    columns:
+     - name: "ВладелецГуид"
+       description: "Уникальный ключ записи"
+       data_tests:
+        - not_null
+        - unique
 
   - name: dim_sale_docs
 
@@ -45,6 +54,13 @@ models:
     columns:
      - name: "СсылкаГуид"
        description: "Уникальный ключ записи"
+       data_tests:
+        - not_null
+        - unique
+
+  - name: subdim_Литраж
+    columns:
+     - name: "ОбъектГуид"
        data_tests:
         - not_null
         - unique

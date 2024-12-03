@@ -9,5 +9,18 @@ models:
        data-tests:
         - not_null
         - unique
+
   - name: "fct_supplies"
     description: "Таблица факта остатков товаров на складах"
+
+  - name: "fct_agr_production_month_plan"
+    columns:
+      - name: key_month_prod
+        tests:
+          - unique
+
+  - name: "fct_agr_production_month_fact"
+    columns:
+      - name: key_month_prod
+        tests:
+          - unique
