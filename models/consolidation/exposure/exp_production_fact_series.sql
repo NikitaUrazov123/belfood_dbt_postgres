@@ -29,7 +29,7 @@ enrichment_calendar as
     * 
     from defined_props
     left join {{ ref("dim_calendar") }}
-        on dim_calendar.cdate = defined_props."Период выпуска прод."
+        on dim_calendar.cdate = defined_props."Период выпуска прод."::date
 )
 
 select * from enrichment_calendar
