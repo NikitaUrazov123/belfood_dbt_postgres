@@ -29,7 +29,7 @@ signed as
 (
     select
     *
-    ,"Месяц выпуска прод."::text||"ПродукцияГуид" as key_month_prod
+    ,concat("Месяц выпуска прод."::text,"ПродукцияГуид") as key_month_prod
     from agregated
 )
 
