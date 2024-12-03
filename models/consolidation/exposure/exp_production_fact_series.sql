@@ -7,8 +7,9 @@ with
 base as
 (
 SELECT 
-{{star_exclude_guid(ref('fct_production_fact'), additional_excludes=["key_record"])}}
+{{star_exclude_guid(ref('fct_production_fact'), additional_excludes=["key_record", "Подразделение выпуска прод."])}}
 ,fct_production_fact."ПродукцияГуид"
+,"Подразделение выпуска прод." as "Подразделение производства"
 FROM 
 {{ ref('fct_production_fact') }}
 ),
