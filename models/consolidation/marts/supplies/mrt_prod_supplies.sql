@@ -1,6 +1,5 @@
 {{ config(
-    materialized='view',
-    tags=["exp"]
+    materialized='table'
 ) }}
 
 with
