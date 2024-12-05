@@ -24,7 +24,7 @@ base as
 	"Количество остатков" as "Количество, шт"
     FROM
     {{ ref('fct_supplies') }}
-    where "Дата остатков"::date >= CURRENT_DATE - interval '2 months'
+    where "Дата остатков"::date >= CURRENT_DATE - interval '6 months'
     )
 union all
 (
@@ -45,7 +45,7 @@ union all
 	"Количество рез. остатков" as "Количество, шт"
     FROM
     {{ ref('fct_supplies_reserved') }}
-    where "Дата рез. остатков"::date >= CURRENT_DATE - interval '2 months'
+    where "Дата рез. остатков"::date >= CURRENT_DATE - interval '6 months'
 )
 ),
 
