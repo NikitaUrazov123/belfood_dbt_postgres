@@ -49,6 +49,11 @@ fac_conv_to_liters as
     select * from {{ ref("subdim_Коэф_номенклатуры_в_литры") }}
 ),
 
+pack_prod as
+(
+    select * from {{ ref("subdim_Номенклатура_ГП") }}
+),
+
 renamed as (
 select
 nomenclature."Артикул" as "Артикул",
@@ -56,8 +61,8 @@ nomenclature."Артикул" as "Артикул",
 nomenclature."Весовой" as "Весовой",
 nomenclature."ВидПроизводства" as "ВидПроизводства",*/
 nomenclature."ВидНоменклатуры" as "Вид номенклат.",
-/*nomenclature."ЕдиницаДляОтчетов" as "ЕдиницаДляОтчетов",
-nomenclature."ЕдиницаХраненияОстатков" as "ЕдиницаХраненияОстатков",*/
+/*nomenclature."ЕдиницаДляОтчетов" as "ЕдиницаДляОтчетов",*/
+nomenclature."ЕдиницаХраненияОстатков" as "Единица остатков номенклат.",
 nomenclature."НаименованиеПолное" as "Полное наименование номенклат.",
 nomenclature."НоменклатурнаяГруппа" as "Номенклатурная группа",
 --nomenclature."НоменклатурнаяГруппаЗатрат" as "Номенклатурная группа затрат",
@@ -83,7 +88,6 @@ nomenclature."Статус" as "Статус номенклат.",
 --nomenclature."Ссылка" as "Ссылка",
 nomenclature."Наименование" as "Наименование номенклат.",
 --nomenclature."Код" as "Код",
-nomenclature."СсылкаГуид" as "СсылкаГуид",
 common_names."Значение" as "Общее наименование номенклат.",
 bar_codes."Штрихкод" as "Штрихкод номенклат."
 ,nomenclature."юи_КодТНВЭД" as "Код ТНВЭД номенклат."
@@ -99,7 +103,11 @@ bar_codes."Штрихкод" as "Штрихкод номенклат."
 , prod_type."Значение" as "Тип продукции номенклат."
 , volume."Значение" as "Литраж номенклат."
 ,fac_conv_to_liters."Коэфициент в литры" as "Коэф. перевода в литры"
-from nomenclature 
+,pack_prod."Св-во. Номенклатура ГП" as "Св-во. Номенклатура ГП"
+,pack_prod."ЗначениеГуид" as "ГуидНоменклатураГП"
+,nomenclature."СсылкаГуид" as "СсылкаГуид"
+from nomenclature
+left join pack_prod on nomenclature."СсылкаГуид" = pack_prod."ОбъектГуид"
 left join common_names on nomenclature."СсылкаГуид" = common_names."ОбъектГуид"
 left join bar_codes on nomenclature."СсылкаГуид" = bar_codes."ВладелецГуид"
 --left join nomenclature_groups on nomenclature."НоменклатурнаяГруппаГуид" = nomenclature_groups."СсылкаГуид"

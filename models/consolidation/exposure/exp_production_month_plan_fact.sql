@@ -24,6 +24,7 @@ defined_props as
 	,coalesce("Количество мес. плана производ.",0) as "План производства, шт"
     ,coalesce("Количество выпуска прод.",0) as "Факт производства, шт"
     ,{{star_exclude_guid(ref('dim_nomenclature'))}}
+    ,dim_nomenclature."СсылкаГуид" as "НоменклатураГуид"
     from base
     left join {{ ref('dim_nomenclature') }}
             on dim_nomenclature."СсылкаГуид" = base."НоменклатураГуид"

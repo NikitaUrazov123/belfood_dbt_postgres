@@ -19,6 +19,15 @@ models:
        data_tests:
         - not_null
         - unique
+
+  - name: subdim_ОНоменклатура_ГП
+    description: "Указывается в номенклатуре упаковок. Показывает какой номенклатуре пренадлежит упаковка"
+    columns:
+     - name: "ОбъектГуид"
+       description: "Уникальный ключ записи"
+       data_tests:
+        - not_null
+        - unique
   
   - name: subdim_Штрихкоды
     description: "Справочник штрихкодов"

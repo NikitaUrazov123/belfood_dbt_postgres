@@ -63,6 +63,8 @@ joined as
     ,"Количество, шт"
     ,{{star_exclude_guid(ref('subdim_nomeclature_series'))}}
     ,{{star_exclude_guid(ref('dim_nomenclature'))}}
+    ,dim_nomenclature."СсылкаГуид" as "НоменклатураГуид"
+    ,dim_nomenclature."ГуидНоменклатураГП"
     ,{{star_exclude_guid(ref('dim_orders'))}}
     ,{{star_exclude_guid(ref('dim_calendar'))}}
     from 
