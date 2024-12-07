@@ -1,5 +1,5 @@
 {{ config(
-    materialized='incremental',
+    materialized='table',
     unique_key='key_record',
     tags=["incremental"]
 ) }}
@@ -22,6 +22,9 @@ signed as
             "СкладГуид") as key_record
     ,now() as updated_at 
     FROM source
+--------------------------------------------------------------------------------------
+    where "ДатаОстатка"::date >= CURRENT_DATE - interval '2 months'
+--------------------------------------------------------------------------------------
 ),
 
 columns_order_data_types as
@@ -45,8 +48,3 @@ columns_order_data_types as
 )
 
 select * from columns_order_data_types
-
-
-{% if is_incremental() %}
-  where "ДатаОстатка"::date >= CURRENT_DATE - interval '3 days'
-{% endif %}
