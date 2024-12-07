@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+
+  - name: refs
+    schema: refs
+    tables:
+      - name: calendar2
+      - name: country_codes_alpha

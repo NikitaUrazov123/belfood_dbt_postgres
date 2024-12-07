@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: api_nbrb_by_exrates
+    schema: api_nbrb_by_exrates
+    tables:
+      - name: rates 
+        
