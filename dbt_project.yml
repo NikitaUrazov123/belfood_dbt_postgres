@@ -30,19 +30,21 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   dbt_analytics_postgres:
     # Config indicated by + and applies to all files under models/example/
+    utilities:
+      +tags: utl
+      +materialized: view
     staging:
-      +enabled: True
+      +tags: stg    
       +materialized: view
-      +tags: stg
-    dimensions:
-      +tags: dim
+    core:
+      +tags: core
+      +materialized: table
+    intermediate:
+      +tags: int
       +materialized: view
-    facts:
-      +tags: fct
-    consolidation:
-      exposure:
-        +tags: exp
-      marts:
-        +tags: mrt
+    marts:
+      +tags: mrt
+      +materialized: table
       reports:
         +tags: rpt
+        +materialized: table

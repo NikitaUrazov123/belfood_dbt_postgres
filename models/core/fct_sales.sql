@@ -1,0 +1,1 @@
+SELECT * FROM {{ ref("stg_1SUPP__РН_Продажи") }}

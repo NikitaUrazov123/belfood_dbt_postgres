@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: base_1SUPP__nomenclature_props
+    description: '{{ doc("base_1SUPP__nomenclature_props") }}'
+
+  - name: base_1SUPP__barcodes
+    description: '{{ doc("base_1SUPP__barcodes") }}'
+
+  - name: "base_1SUPP__register_supplies"
+    description: '{{ doc("base_1SUPP__register_supplies") }}'
+    columns:
+      - name: record_id
+        data_type: text
+        tests:
+          - unique
+        quote: false
+

@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: "mrt_sales"
+    description: "Март по продажам"
+    columns:
+      - name: record_id
+        description: Ключ уникальный записи. Соответсвует ключу из таблицы фактов по продажам
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: true
+
+  - name: "mrt_production_plan_fact"
+    description: "Март по план-факт производству продукции на месяц"
+    columns:
+      - name: month_prod_key
+        description: Ключ записи
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: true

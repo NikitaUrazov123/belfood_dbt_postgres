@@ -1,0 +1,131 @@
+version: 2
+
+models:
+  - name: "stg_1SUPP__nomenclature_props"
+    description: "Свойства номенклатуры"
+    columns:
+      - name: Гуид номенклатуры
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: true
+
+  - name: "stg_1SUPP__register_reserved_supplies"
+    description: "Ключ записи"
+    columns:
+      - name: record_id
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: false
+
+  - name: "stg_1SUPP__register_supplies"
+    description: "Ключ записи"
+    columns:
+      - name: record_id
+        data_type: text
+        tests:
+          - unique
+        quote: false
+
+  - name: "stg_1SUPP__client_props"
+    description: "Свойства контрагентов"
+    columns:
+      - name: Гуид контрагента
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: true
+
+  - name: "stg_1SUPP__return_docs"
+    description: "Документы возвратов"
+    columns:
+      - name: СсылкаГуид
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: true
+
+  - name: "stg_1SUPP__return_goods"
+    description: "Товары возвратов"
+    columns:
+      - name: record_id
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: false
+
+  - name: "stg_1SUPP__sale_goods"
+    description: "Товары реализаций"
+    columns:
+      - name: record_id
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: false
+
+  - name: "stg_1SUPP__sale_docs"
+    description: "Документы реализаций"
+    columns:
+      - name: СсылкаГуид
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: true
+
+  - name: "stg_1SUPP__shops"
+    description: "Торговые объекты"
+    columns:
+      - name: СсылкаГуид
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: true
+
+  - name: "stg_1SUPP__nom_series"
+    description: "Серии номенклатуры"
+    columns:
+      - name: СсылкаГуид
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: true
+
+  - name: "stg_1SUPP__storages"
+    description: "Склады"
+    columns:
+      - name: СсылкаГуид
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: true
+
+  - name: "stg_1SUPP__register_production_plans"
+    description: "Регистр накоплений по планам производства"
+    columns:
+      - name: record_id
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: false
+
+  - name: "stg_1SUPP__register_production"
+    description: "Регистр накоплений по выпуску продукции"
+    columns:
+      - name: record_id
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: false

@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_api_nbrb_by_exrates__exrates
+    columns:
+      - name: Date
+        data_type: date
+        tests:
+          - not_null
+          - unique
+        quote: true
