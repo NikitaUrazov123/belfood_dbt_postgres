@@ -4,7 +4,7 @@ base as
     select * from {{ ref("base_1SUPP__barcodes") }}
 ),
 
-renamed as
+renamed_and_cast as
 (
     select
     "Штрихкод",
@@ -12,4 +12,4 @@ renamed as
     from base
 )
 
-select * from renamed
+select * from renamed_and_cast

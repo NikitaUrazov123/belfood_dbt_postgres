@@ -8,7 +8,7 @@ filtred as
 	where "ЭтоГруппа" = False
 ),
 
-renamed as 
+renamed_and_cast as 
 (
 	select
 	"Артикул",
@@ -119,4 +119,4 @@ renamed as
 	from filtred
 )
 
-select * from renamed
+select * from renamed_and_cast

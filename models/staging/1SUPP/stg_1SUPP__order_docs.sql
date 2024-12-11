@@ -3,7 +3,7 @@ source as (
 select * from {{ source('Stage1CUpp', 'Д_ЗаказПокупателя') }}
 ),
 
-renamed as
+renamed_and_cast as
 (
     select 
 	--"EDI_buyerGLN",
@@ -127,4 +127,4 @@ renamed as
     from source
 )
 
-select * from renamed
+select * from renamed_and_cast

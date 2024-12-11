@@ -3,7 +3,7 @@ source as (
 select * from {{ source('Stage1CUpp', 'С_СерииНоменклатуры') }}
 ),
 
-renamed as
+renamed_and_cast as
 (
     select 
     --"СерийныйНомер",
@@ -53,4 +53,4 @@ renamed as
 
 )
 
-select * from renamed
+select * from renamed_and_cast

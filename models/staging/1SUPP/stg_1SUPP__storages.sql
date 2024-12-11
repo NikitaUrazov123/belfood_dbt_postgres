@@ -11,7 +11,7 @@ filtred as
     where "ЭтоГруппа" = FALSE
 ),
 
-renamed as
+renamed_and_cast as
 (
     select
     --"Комментарий",
@@ -40,4 +40,4 @@ renamed as
     from filtred
 )
 
-select * from renamed
+select * from renamed_and_cast

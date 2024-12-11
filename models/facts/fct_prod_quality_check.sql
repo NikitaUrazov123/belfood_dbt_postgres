@@ -19,7 +19,7 @@ signed as
     from source
 ),
 
-renamed as 
+renamed_and_cast as 
 (
     select
     "Ссылка" AS "Товар док. кор. качества",
@@ -55,4 +55,4 @@ renamed as
     from signed
 )
 
-select * from renamed
+select * from renamed_and_cast

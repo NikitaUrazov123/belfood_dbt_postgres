@@ -4,7 +4,7 @@ source as
     select * from {{ source('Stage1CUpp', 'РН_ПланыПроизводства') }}
 ),
 
-renamed as 
+renamed_and_cast as 
 (
     select
     --"Активность",
@@ -46,7 +46,7 @@ defined_props as
     *
     ,{{ dbt_utils.generate_surrogate_key(['\"РегистраторГуид\"', "\"Номер строки плана производ.\""]) }} as record_id
     --,now() as updated_at
-    FROM renamed
+    FROM renamed_and_cast
 )
 
 select * from defined_props

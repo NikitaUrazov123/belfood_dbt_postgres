@@ -4,7 +4,7 @@ source as
     select * from {{ source('Stage1CUpp', 'Д_РеализацияТоваровУслугТовары') }}
 ),
 
-renamed as
+renamed_and_cast as
 (
   select
 	--"Ссылка",
@@ -77,7 +77,7 @@ defined_props as
   SELECT 
   *
   ,{{ dbt_utils.generate_surrogate_key(['\"СсылкаГуид\"', "\"Номер строки тов. реализации\""]) }} as record_id
-  FROM renamed
+  FROM renamed_and_cast
 )
     
 select * from defined_props

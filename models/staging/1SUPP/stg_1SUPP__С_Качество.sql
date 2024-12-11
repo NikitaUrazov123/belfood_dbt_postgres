@@ -5,7 +5,7 @@
 with source as (
 select * from {{ source('Stage1CUpp', 'С_Качество') }}),
 
-renamed as
+renamed_and_cast as
 (
     select
 	--"Предопределенный",
@@ -19,4 +19,4 @@ renamed as
     from source
 )
 
-select * from renamed
+select * from renamed_and_cast

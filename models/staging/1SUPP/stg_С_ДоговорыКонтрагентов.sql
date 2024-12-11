@@ -1,7 +1,7 @@
 with source as (
       select * from {{ source('Stage1CUpp', 'С_ДоговорыКонтрагентов') }}
 ),
-renamed as (
+renamed_and_cast as (
     select
     "ValyutaVzaimoraschetov" as "ВалютаВзаиморасчетов"
     ,"VedenieVzaimoraschetov" as "ВедениеВзаиморасчетов"
@@ -73,7 +73,7 @@ renamed as (
 
 filtred as 
 (
-    select * from renamed
+    select * from renamed_and_cast
     where "ПометкаУдаления" = False
 )
 

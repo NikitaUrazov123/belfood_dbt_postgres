@@ -5,7 +5,7 @@
 with source as (
 select * from {{ source('Stage1CUpp', 'С_ТорговыеОбъекты') }}),
 
-renamed as
+renamed_and_cast as
 (
     select
     "АдресДоставки" as "Адрес доставки торгового объекта",
@@ -45,4 +45,4 @@ renamed as
     from source
 )
 
-select * from renamed
+select * from renamed_and_cast

@@ -11,7 +11,7 @@ filtred as
     where "ДатаОстатка"::date >= CURRENT_DATE
 ),
 
-renamed as 
+renamed_and_cast as 
 (
     select 
     CAST("Склад" AS VARCHAR(80)) as "Склад рез. остатков", 
@@ -35,7 +35,7 @@ defined_props as
         '\"СкладГуид\"',
         '\"ДокументРезерваГуид\"',
         ]) }} as record_id
-    FROM renamed
+    FROM renamed_and_cast
 )
 
 select * from defined_props
