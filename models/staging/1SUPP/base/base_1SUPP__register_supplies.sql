@@ -24,7 +24,7 @@ agregated as
     "ДатаОстатка",
     sum("КоличествоОстаток") as "КоличествоОстаток"
     from source
-    where "ДатаОстатка"::date >= CURRENT_DATE
+    where "ДатаОстатка"::date >= CURRENT_DATE - INTERVAL '6 months'
     group by 1,2,3,4,5,6,7,8,9
 ),
 

@@ -8,7 +8,7 @@ filtred as
 (
     select *
     from base
-    where "ДатаОстатка"::date >= CURRENT_DATE
+    where "ДатаОстатка"::date >= CURRENT_DATE - INTERVAL '6 months'
 ),
 
 renamed as 

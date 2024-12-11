@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: "int_supplies_with_reserved"
+  - name: "int_supplies_with_reserved_dims"
     # description: "Март по продажам"
     columns:
       - name: record_id
