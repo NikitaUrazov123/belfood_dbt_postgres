@@ -214,7 +214,11 @@ defined_props_fifth as
         WHEN round(("Срок реализации, дн"::numeric / "Срок годности, дн") * 100, 2) BETWEEN 70 AND 79.99 THEN '70%-80%'
         WHEN round(("Срок реализации, дн"::numeric / "Срок годности, дн") * 100, 2) >= 80 THEN '>80%'
         ELSE '-' 
-    END AS "Сроки"
+    END AS "Сроки",
+    case
+        WHEN round(("Срок реализации, дн"::numeric / "Срок годности, дн") * 100, 2) > 66 THEN 'Да'
+        ELSE 'Нет'
+    END AS "Срок более 66%?"
     from defined_props_fourth
 )
 
