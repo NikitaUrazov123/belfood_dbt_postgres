@@ -198,11 +198,16 @@ defined_props_fifth as
 (
     select 
     *
-    ,CASE 
-        WHEN "Срок годности, дн" = 0 
-            THEN 0 
-        ELSE round(("Срок реализации, дн"::numeric / "Срок годности, дн"), 4)::real
-    END AS "Срок реализации, %",
+,CASE 
+    WHEN "Срок годности, дн" = 0 
+        THEN '0.00%'
+    ELSE 
+        to_char(
+            round("Срок реализации, дн"::numeric / "Срок годности, дн", 4)*100, 
+            'FM999990.00%'
+        )
+END AS "Срок реализации, %",
+
 
     CASE 
         WHEN "Резерв?" = '1' THEN 'Резерв'
