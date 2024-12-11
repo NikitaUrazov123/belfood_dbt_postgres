@@ -1,8 +1,3 @@
-{{ config(
-    materialized='table',
-    unique_key='key_record'
-) }}
-
 with
 source as 
 (

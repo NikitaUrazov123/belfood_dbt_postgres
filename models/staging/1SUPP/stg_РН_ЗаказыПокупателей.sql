@@ -1,9 +1,3 @@
-{{ config(
-    materialized='incremental',
-    unique_key='key_record',
-    tags=["incremental"]
-) }}
-
 with
 source as
 (
@@ -20,7 +14,3 @@ signed as
 )
 
 select * from signed
-
-{% if is_incremental() %}
-  where "Период"::date >= CURRENT_DATE - interval '2 months'
-{% endif %}

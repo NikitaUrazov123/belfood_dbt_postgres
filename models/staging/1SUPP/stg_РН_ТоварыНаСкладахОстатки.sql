@@ -1,9 +1,3 @@
-{{ config(
-    materialized='table',
-    unique_key='key_record',
-    tags=["incremental"]
-) }}
-
 with
 source as 
 (
