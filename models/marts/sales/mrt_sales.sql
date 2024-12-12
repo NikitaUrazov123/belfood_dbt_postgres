@@ -17,6 +17,7 @@ defined_props_first as
     ,"RUB_scale"
     ,"Общее наименование номенклат."
     ])}}
+    ,"НоменклатураГуид"
     ,"Количество продаж" as "Количество, шт"
     ,"Стоимость продаж" as "Сумма продажи c НДС, BYN"
     ,"Стоимость продаж"-"НДС продаж" as "Сумма продажи без НДС, BYN"
@@ -86,7 +87,7 @@ defined_props_second as
         when "Количество, шт" = 0 then 0
         else "Сумма продажи без НДС, USD"/"Количество, шт" 
     end as "Сумма за штуку, USD"
-    ,min("Период продаж") over (partition by "Общее наименование номенклатуры") as "Дата первой продажи по артикулу"
+    ,min("Период продаж") over (partition by "Общее наименование номенклатуры") as "Дата первой продажи по общ. наименованию"
     ,case
         when "Наименование номенклат." like '%огурт%' or "Наименование номенклат." like '%удинг%' or "Наименование номенклат." like '%ворож%' then 'Молочное'
         when "Наименование номенклат." like '%каш%' then 'Каши'
@@ -97,11 +98,23 @@ defined_props_second as
     from defined_props_first
 ),
 
+defined_props_third as
+(
+    select 
+    *
+    ,case
+        when "Дата первой продажи по общ. наименованию"::date >= CURRENT_DATE - interval '6 months' or "Статус номенклат." ='Новинка'then true
+        else false
+    end as "Новинка за последние 6 месяцев?"
+    from defined_props_second
+
+),
+
 
 filtred as
 (
     SELECT * 
-    FROM defined_props_second
+    FROM defined_props_third
     WHERE 
         COALESCE("Вид номенклат.", '') IN ('Товар', 'Продукция')
         AND COALESCE("Регион контрагента", '') NOT IN ('Сотрудники', 'Матпомощь', 'Логистика')

@@ -4,6 +4,7 @@ base as
     select
     {{star_exclude_guid(ref("fct_sales"), additional_excludes=["record_id", "Номер строки продаж"])}}
     ,fct_sales.record_id
+    ,fct_sales."НоменклатураГуид"
     ,{{star_exclude_guid(ref("dim_nomenclature"))}}
     ,{{star_exclude_guid(ref('dim_calendar'), additional_excludes=["cdate"])}}
     ,{{star_exclude_guid(ref("dim_clients"))}}
