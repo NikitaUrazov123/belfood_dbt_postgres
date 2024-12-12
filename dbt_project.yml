@@ -44,7 +44,7 @@ models:
       +materialized: view
     marts:
       +tags: mrt
-      +materialized: table
+      +materialized: view
       reports:
         +tags: rpt
         +materialized: table

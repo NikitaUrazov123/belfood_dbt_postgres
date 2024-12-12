@@ -1,6 +1,3 @@
-{{ config(
-    materialized='table'
-) }}
 with 
 rpt_supplies_prod_OOS as 
 (
