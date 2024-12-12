@@ -25,13 +25,24 @@ filtred as
     where "Гуид номенклатуры" is not null
 ),
 
-final as
+formed as
 (
     select 
     "Гуид номенклатуры",
     "Свойство",
     "Значение"
     from filtred
+),
+
+taste_to_lower as
+(
+    select 
+    "Гуид номенклатуры"
+    ,CASE
+        when "Свойство" = 'мВкус' then lower(replace(replace(trim("Значение" ),' ', '_'), '-', '_'))
+        else "Значение" 
+    end as "Значение"
+    from formed
 )
 
-select * from final
+select * from taste_to_lower
