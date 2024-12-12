@@ -38,6 +38,7 @@ taste_to_lower as
 (
     select 
     "Гуид номенклатуры"
+    ,"Свойство"
     ,CASE
         when "Свойство" = 'мВкус' then lower(replace(replace(trim("Значение" ),' ', '_'), '-', '_'))
         else "Значение" 
