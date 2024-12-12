@@ -55,11 +55,10 @@ agregated as
     year,
     month,
     yyyymi,
-    "Дата остатков",
     "Гуид номенклатуры"
     ,sum("OOS") as "OOS"
     from oos
-    group by 1,2,3,4,5
+    group by 1,2,3,4
 ),
 
 defined_props_second as
