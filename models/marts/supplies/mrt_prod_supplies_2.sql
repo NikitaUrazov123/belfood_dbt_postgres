@@ -20,7 +20,7 @@ filtred as
         'Склад ТЛЦ Орша-Белтаможсервис (ответхранение)')
 ),
 
-defined_props_first as 
+defined_props_1 as 
 (
 select *
 ,CASE 
@@ -52,7 +52,7 @@ END AS "Срок реализации, дн"
 from filtred
 ),
 
-defined_props_second as
+defined_props_2 as
 (
     select 
     *
@@ -82,7 +82,7 @@ END AS "Срок реализации, %",
         WHEN round(("Срок реализации, дн"::numeric / "Срок годности, дн") * 100, 2) > 66 THEN 'Да'
         ELSE 'Нет'
     END AS "Срок более 66%?"
-    from defined_props_first
+    from defined_props_1
 )
 
-select * from defined_props_second
+select * from defined_props_2

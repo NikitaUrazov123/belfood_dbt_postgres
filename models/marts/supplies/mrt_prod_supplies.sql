@@ -20,7 +20,7 @@ filtred as
         'Склад ТЛЦ Орша-Белтаможсервис (ответхранение)')
 ),
 
-defined_props_first as
+defined_props_1 as
 (
     select 
     *
@@ -72,7 +72,7 @@ from filtred
 ---------------------------------------------------------------------------------------------
 ),
 
-defined_props_second as
+defined_props_2 as
 (
     select 
     *
@@ -80,10 +80,10 @@ defined_props_second as
         WHEN "Комментарий" = 'Выдержка' THEN 1
         ELSE 0
     END AS "Выдержка?"
-    from defined_props_first
+    from defined_props_1
 ),
 
-defined_props_third as
+defined_props_3 as
 (
     select 
     *
@@ -91,10 +91,10 @@ defined_props_third as
     WHEN "Комментарий" = 'Резерв' THEN "Количество, шт"
     ELSE 0
 END AS "В резерве"
-from defined_props_second
+from defined_props_2
 ),
 
-defined_props_fourth as
+defined_props_4 as
 (
     select
     *,
@@ -187,10 +187,10 @@ CASE
     WHEN ("Срок годности серии ном."::date -"Дата остатков"::date) < 0 THEN 0
     ELSE ("Срок годности серии ном."::date -"Дата остатков"::date)
 END AS "Срок реализации, дн"
-from defined_props_third
+from defined_props_3
 ),
 
-defined_props_fifth as
+defined_props_5 as
 (
     select 
     *
@@ -220,7 +220,18 @@ END AS "Срок реализации, %",
         WHEN round(("Срок реализации, дн"::numeric / "Срок годности, дн") * 100, 2) > 66 THEN 'Да'
         ELSE 'Нет'
     END AS "Срок более 66%?"
-    from defined_props_fourth
+    from defined_props_4
+),
+
+defined_props_6 as 
+(
+    select 
+    *
+    ,case
+        when position('QR' in "Наименование номенклат.")>0 then 'QR'
+        else ''
+    end as "QR?"
+    from defined_props_5
 )
 
-select * from defined_props_fifth
+ select * from defined_props_6

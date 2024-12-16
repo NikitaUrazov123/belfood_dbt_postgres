@@ -1,5 +1,5 @@
 with 
-defined_props_first as
+defined_props_1 as
 (
     select
     {{star_exclude_guid(ref("int_sales"), 
@@ -59,7 +59,7 @@ defined_props_first as
     {{ ref('int_sales') }}
 ),
 
-defined_props_second as
+defined_props_2 as
 (
     select 
     *
@@ -95,10 +95,10 @@ defined_props_second as
         when "Вид ДП номенклат." like '%пюре%' then 'Пюре'
         else 'Все остальное' 
     end as "Вид ДП доп."
-    from defined_props_first
+    from defined_props_1
 ),
 
-defined_props_third as
+defined_props_3 as
 (
     select 
     *
@@ -106,7 +106,7 @@ defined_props_third as
         when "Дата первой продажи по общ. наименованию"::date >= CURRENT_DATE - interval '6 months' or "Статус номенклат." ='Новинка'then true
         else false
     end as "Новинка за последние 6 месяцев?"
-    from defined_props_second
+    from defined_props_2
 
 ),
 
@@ -114,7 +114,7 @@ defined_props_third as
 filtred as
 (
     SELECT * 
-    FROM defined_props_third
+    FROM defined_props_3
     WHERE 
         COALESCE("Вид номенклат.", '') IN ('Товар', 'Продукция')
         AND COALESCE("Регион контрагента", '') NOT IN ('Сотрудники', 'Матпомощь', 'Логистика')

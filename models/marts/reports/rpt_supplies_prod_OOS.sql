@@ -61,7 +61,7 @@ agregated as
     group by 1,2,3,4
 ),
 
-defined_props_second as
+defined_props_2 as
 (
     select
     agregated.*
@@ -73,4 +73,4 @@ defined_props_second as
 )
 
 SELECT * 
-FROM defined_props_second
+FROM defined_props_2

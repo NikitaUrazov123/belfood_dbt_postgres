@@ -3,6 +3,7 @@ today_supplies as
 (
     select
     "Статус номенклат.",
+    "QR?",
     "Вид ДП номенклат.",
     "Бренд номенклат.",
     "Вид производства номенклат.",
@@ -26,7 +27,7 @@ today_supplies as
     from 
     {{ ref('mrt_prod_supplies') }}
     where "Дата остатков"::date = CURRENT_DATE::date
-    group by 1,2,3,4,5,6,7,8,9,10
+    group by 1,2,3,4,5,6,7,8,9,10,11
 ),
 
 current_month_production_remains as

@@ -8,7 +8,7 @@ base as
     select * from {{ ref("int_supplies_with_reserved") }}
 ),
 
-defined_props_first as
+defined_props_1 as
 (
     select 
     *
@@ -60,7 +60,7 @@ from base
 ---------------------------------------------------------------------------------------------
 ),
 
-defined_props_second as
+defined_props_2 as
 (
     select 
     *
@@ -68,10 +68,10 @@ defined_props_second as
         WHEN "Комментарий" = 'Выдержка' THEN 1
         ELSE 0
     END AS "Выдержка?"
-    from defined_props_first
+    from defined_props_1
 ),
 
-defined_props_third as
+defined_props_3 as
 (
     select 
     *
@@ -79,10 +79,10 @@ defined_props_third as
     WHEN "Комментарий" = 'Резерв' THEN "Количество, шт"
     ELSE 0
 END AS "В резерве"
-from defined_props_second
+from defined_props_2
 ),
 
-defined_props_fourth as
+defined_props_4 as
 (
     select
     *,
@@ -148,7 +148,7 @@ CASE
     WHEN "Склад" = 'Неэтикеровано' THEN "Количество, шт"
     ELSE 0
 END AS "Неэтикеровано"
-from defined_props_third
+from defined_props_3
 )
 
-select * from defined_props_fourth
+select * from defined_props_4
