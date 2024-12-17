@@ -1,3 +1,9 @@
+{{
+  config(
+    materialized = 'table'
+    )
+}}
+
 with 
 defined_props_1 as
 (
