@@ -4,13 +4,6 @@ base as
     select * from {{ ref("base_1SUPP__register_supplies") }}
 ),
 
-filtred as
-(
-    select *
-    from base
-    where "ДатаОстатка"::date >= CURRENT_DATE - INTERVAL '6 months'
-),
-
 renamed_and_cast as 
 (
     select 
@@ -23,22 +16,9 @@ renamed_and_cast as
     "КачествоГуид"::text, 
     "СерияНоменклатурыГуид"::text,
     "ДатаОстатка"::date as "Дата остатков",
-    CAST("КоличествоОстаток" as real) as "Количество остатков"
-    from filtred
-),
-
-defined_props as 
-(
-    SELECT
-    *
-    ,{{ dbt_utils.generate_surrogate_key([
-        '\"Дата остатков\"',
-        '\"СерияНоменклатурыГуид\"',
-        '\"КачествоГуид\"',
-        '\"НоменклатураГуид\"',
-        '\"СкладГуид\"'
-    ])}} as record_id
-    from renamed_and_cast
+    CAST("КоличествоОстаток" as real) as "Количество остатков",
+    record_id
+    from base
 )
 
-select * from defined_props
+select * from renamed_and_cast

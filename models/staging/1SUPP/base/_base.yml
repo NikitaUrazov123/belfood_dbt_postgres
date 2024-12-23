@@ -16,3 +16,12 @@ models:
           - unique
         quote: false
 
+  - name: "base_1SUPP__prices"
+    description: '{{ doc("base_1SUPP__prices") }}'
+    columns:
+      - name: record_id
+        data_type: text
+        tests:
+          - unique
+        quote: false
+
