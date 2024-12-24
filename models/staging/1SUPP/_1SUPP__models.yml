@@ -129,3 +129,12 @@ models:
           - unique
           - not_null
         quote: false
+
+  - name: "stg_1SUPP__managment_costs"
+    columns:
+      - name: record_id
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: false

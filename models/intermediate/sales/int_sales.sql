@@ -55,14 +55,25 @@ enrichment_nom_series as
         on enrichment_shops."СерияНоменклатурыГуид" = dim_nom_series."СсылкаГуид"
 ),
 
-enrichment_order_docs as
+enrichment_managment_costs as 
 (
     select
     enrichment_nom_series.*
-    ,{{star_exclude_guid(ref("dim_orders"))}}
+    ,{{star_exclude_guid(ref("dim_managment_costs"), additional_excludes=["record_id"])}}
     from enrichment_nom_series
+    left join {{ ref("dim_managment_costs") }} mc
+        on date_trunc('month', enrichment_nom_series."Дата производства серии ном.") = mc."Месяц упр. себес."
+        and enrichment_nom_series."НоменклатураГуид" = mc."НоменклатураГуид"
+),
+
+enrichment_order_docs as
+(
+    select
+    enrichment_managment_costs.*
+    ,{{star_exclude_guid(ref("dim_orders"))}}
+    from enrichment_managment_costs
     left join {{ ref("dim_orders") }}
-        on enrichment_nom_series."ЗаказПокупателяГуид" = dim_orders."СсылкаГуид"
+        on enrichment_managment_costs."ЗаказПокупателяГуид" = dim_orders."СсылкаГуид"
 ),
 
 enrichment_storages as

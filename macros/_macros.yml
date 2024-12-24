@@ -1,0 +1,16 @@
+version: 2
+
+macros:
+
+  - name: "star_exclude_guid"
+    description: "Макрос можно использовать вместо оператора \"*\". Исключает поля содержащие \"Гуид\" и вторым аргументом поля из массива \"additinal_excludes\""
+    arguments:
+    - name: model_ref
+      type: string
+      description: Ссылка на модель 
+    - name: exclude_substring
+      type: string
+      description: Если название поля содержит эту подстроку, поле будет исключено. По умолчанию — "Гуид".
+    - name: additional_excludes
+      type: array
+      description: Массив с дополнительными полями для исключения.

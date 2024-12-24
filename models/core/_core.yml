@@ -1,15 +1,6 @@
 version: 2
 
 models:
-  - name: "dim_nomenclature_new"
-    columns:
-      - name: СсылкаГуид
-        data_type: text
-        tests:
-          - unique
-          - not_null
-        quote: true
-
   - name: "dim_clients"
     columns:
       - name: СсылкаГуид
@@ -65,6 +56,15 @@ models:
         quote: false
 
   - name: "fct_supplies"
+    columns:
+      - name: record_id
+        data_type: text
+        tests:
+          - unique
+          - not_null
+        quote: false
+
+  - name: "dim_managment_costs"
     columns:
       - name: record_id
         data_type: text

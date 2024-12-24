@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_refs_calendar2
+  - name: stg_refs__calendar2
     columns:
       - name: cdate
         data_type: date
