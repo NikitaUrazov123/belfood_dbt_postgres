@@ -6,7 +6,7 @@ models:
     columns:
       - name: Гуид номенклатуры
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: true
@@ -16,7 +16,7 @@ models:
     columns:
       - name: record_id
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: false
@@ -26,7 +26,7 @@ models:
     columns:
       - name: record_id
         data_type: text
-        tests:
+        data_tests:
           - unique
         quote: false
 
@@ -35,7 +35,7 @@ models:
     columns:
       - name: Гуид контрагента
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: true
@@ -45,7 +45,7 @@ models:
     columns:
       - name: СсылкаГуид
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: true
@@ -55,7 +55,7 @@ models:
     columns:
       - name: record_id
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: false
@@ -65,7 +65,7 @@ models:
     columns:
       - name: record_id
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: false
@@ -75,7 +75,7 @@ models:
     columns:
       - name: СсылкаГуид
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: true
@@ -85,7 +85,7 @@ models:
     columns:
       - name: СсылкаГуид
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: true
@@ -95,7 +95,7 @@ models:
     columns:
       - name: СсылкаГуид
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: true
@@ -105,7 +105,7 @@ models:
     columns:
       - name: СсылкаГуид
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: true
@@ -115,7 +115,7 @@ models:
     columns:
       - name: record_id
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: false
@@ -125,7 +125,7 @@ models:
     columns:
       - name: record_id
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: false
@@ -134,7 +134,7 @@ models:
     columns:
       - name: record_id
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: false

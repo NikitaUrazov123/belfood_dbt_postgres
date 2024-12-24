@@ -12,7 +12,7 @@ models:
     columns:
       - name: record_id
         data_type: text
-        tests:
+        data_tests:
           - unique
         quote: false
 
@@ -21,7 +21,7 @@ models:
     columns:
       - name: record_id
         data_type: text
-        tests:
+        data_tests:
           - unique
         quote: false
 

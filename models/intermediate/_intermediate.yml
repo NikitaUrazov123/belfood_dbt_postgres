@@ -7,7 +7,7 @@ models:
       - name: record_id
         description: Уникальный ключ записи
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: true

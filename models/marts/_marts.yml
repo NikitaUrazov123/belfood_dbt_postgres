@@ -7,7 +7,7 @@ models:
       - name: record_id
         description: Ключ уникальный записи. Соответсвует ключу из таблицы фактов по продажам
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: true
@@ -18,7 +18,7 @@ models:
       - name: month_prod_key
         description: Ключ записи
         data_type: text
-        tests:
+        data_tests:
           - unique
           - not_null
         quote: true

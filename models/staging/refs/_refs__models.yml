@@ -5,7 +5,7 @@ models:
     columns:
       - name: cdate
         data_type: date
-        tests:
+        data_tests:
           - not_null
           - unique
         quote: false
