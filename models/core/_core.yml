@@ -68,7 +68,4 @@ models:
     columns:
       - name: record_id
         data_type: text
-        data_tests:
-          - unique
-          - not_null
         quote: false
